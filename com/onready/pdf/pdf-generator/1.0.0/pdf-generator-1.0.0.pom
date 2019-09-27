@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>pdf-generator</name>
-    <description>PDF domain.Voucher generator for SLA</description>
+    <description>PDF Voucher generator for SLA</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
