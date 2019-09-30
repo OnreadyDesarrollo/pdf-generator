@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PdfGenerator {
 
-  private final PdfCreationUtil pdfCreationUtil;
+  private final PdfCreationUtil pdfCreationUtil = new PdfCreationUtil();
 
   private static final String CROMOSOL_COMPANY = "CRO";
   private static final Long AVELLANEDA_BRANCH = 14L;
