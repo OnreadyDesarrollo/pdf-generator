@@ -1,10 +1,11 @@
 # pdf-generator
 
-  <dependency>
+```xml
+	<dependency>
 		<groupId>com.onready.pdf</groupId>
 		<artifactId>pdf-generator</artifactId>
 		<version>1.0.0</version>
-  </dependency>
+	</dependency>
 
 	<repositories>
 		<repository>
@@ -12,3 +13,4 @@
 			<url>https://raw.github.com/OnreadyDesarrollo/pdf-generator/repository</url>
 		</repository>
 	</repositories>
+```
