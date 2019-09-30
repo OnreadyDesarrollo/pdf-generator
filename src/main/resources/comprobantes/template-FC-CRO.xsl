@@ -43,7 +43,7 @@
 
     <xsl:template name="logo">
         <fo:block text-align="left">
-            <fo:external-graphic src="url('classpath:static/comprobantes/logo-cromosol.png')"
+            <fo:external-graphic src="url('classpath:comprobantes/logo-cromosol.png')"
                                  content-height="25mm"
                                  scaling="uniform"/>
         </fo:block>

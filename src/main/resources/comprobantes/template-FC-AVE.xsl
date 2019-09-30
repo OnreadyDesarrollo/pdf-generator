@@ -40,7 +40,7 @@
 
     <xsl:template name="logo">
         <fo:block text-align="center">
-            <fo:external-graphic src="url('classpath:static/comprobantes/logo-avellaneda.jpg')"
+            <fo:external-graphic src="url('classpath:comprobantes/template-FC-AVE.xsl')"
                                  content-height="20mm"
                                  scaling="uniform"/>
         </fo:block>

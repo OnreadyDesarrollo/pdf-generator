@@ -18,7 +18,7 @@ public class PdfClasspathUriResolver implements URIResolver {
   @Override
   public Source resolve(String href, String base) {
     try {
-      InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("static/comprobantes/" + href);
+      InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("comprobantes/" + href);
       return new StreamSource(inputStream);
     } catch (Exception ex) {
       LOGGER.error("Error resolviendo path del pdf", ex);

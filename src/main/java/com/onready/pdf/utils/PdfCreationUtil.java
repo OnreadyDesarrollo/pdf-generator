@@ -18,7 +18,7 @@ public class PdfCreationUtil {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PdfCreationUtil.class);
 
-  private String apacheFopConfigFilePath = "comprobantes/fop-config-dev.xml";
+  private String apacheFopConfigFilePath = "comprobantes/fop-config.xml";
 
   public byte[] generateFile(InputStream xslTemplateFileInputStream, Object objectToRender)
       throws PDFCreationException {
