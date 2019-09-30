@@ -1,0 +1,34 @@
+<fop version="1.0">
+
+    <!-- Strict user configuration -->
+    <strict-configuration>true</strict-configuration>
+
+    <!-- Strict FO validation -->
+    <strict-validation>true</strict-validation>
+
+    <!-- Font Base URL for resolving relative font URLs -->
+    <font-base>./</font-base>
+
+    <renderers>
+        <renderer mime="application/pdf">
+            <filterList>
+                <!-- provides compression using zlib flate (default is on) -->
+                <value>flate</value>
+            </filterList>
+            <fonts>
+                <font metrics-url="arial.xml" kerning="yes" embed-url="arial.ttf">
+                    <font-triplet name="Arial" style="normal" weight="normal"/>
+                    <font-triplet name="ArialMT" style="normal" weight="normal"/>
+                </font>
+                <font metrics-url="arialb.xml" kerning="yes" embed-url="arialb.ttf">
+                    <font-triplet name="Arial" style="normal" weight="bold"/>
+                    <font-triplet name="ArialMT" style="normal" weight="bold"/>
+                </font>
+                <font kerning="yes" embed-url="/fonts/comprobantes/PF_I2OF5.ttf">
+                    <font-triplet name="pf_interleaved_2_of_5regular" style="normal" weight="normal"/>
+                </font>
+            </fonts>
+        </renderer>
+    </renderers>
+
+</fop>
