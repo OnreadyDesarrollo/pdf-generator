@@ -39,7 +39,7 @@
                 <fo:table-row>
                     <fo:table-cell padding="6px 0px 1px 0px" font-size="13pt">
                         <fo:block>
-                            <xsl:value-of select="voucher/companyName"/>
+                            <xsl:value-of select="receipt/company"/>
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell padding="6px 0px 1px 0px" font-size="10pt" font-weight="bold" text-align="center">
@@ -47,7 +47,7 @@
                     </fo:table-cell>
                     <fo:table-cell padding="6px 0px 1px 0px" font-size="9pt" font-weight="bold" text-align="center">
                         <fo:block>
-                            <xsl:value-of select="voucher/formattedNumber"/>
+                            <xsl:value-of select="receipt/formattedNumber"/>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
@@ -62,7 +62,7 @@
                     </fo:table-cell>
                     <fo:table-cell font-size="8pt" text-align="center">
                         <fo:block>
-                            <xsl:value-of select="voucher/voucherDate"/>
+                            <xsl:value-of select="receipt/voucherDate"/>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
@@ -70,7 +70,7 @@
                     <fo:table-cell font-size="8pt">
                         <fo:block>
                             CUIT:
-                            <xsl:value-of select="voucher/cuit"/>
+                            <xsl:value-of select="receipt/cuit"/>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
@@ -86,31 +86,31 @@
                 <fo:table-row>
                     <fo:table-cell padding="10px 0px 0px 0px">
                         <fo:block>
-                            <xsl:value-of select="customer/businessName"/>
+                            <xsl:value-of select="receipt/businessName"/>
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell padding="10px 0px 0px 0px">
                         <fo:block>
-                            <xsl:value-of select="voucher/customerId"/>
+                            <xsl:value-of select="receipt/customerId"/>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
                 <fo:table-row>
                     <fo:table-cell>
                         <fo:block>
-                            <xsl:value-of select="voucher/address"/>
+                            <xsl:value-of select="receipt/address"/>
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                         <fo:block>
-                            <xsl:value-of select="voucher/sellerCode"/>
+                            <xsl:value-of select="receipt/sellerCode"/>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
                 <fo:table-row>
                     <fo:table-cell>
                         <fo:block>
-                            <xsl:value-of select="voucher/city"/>
+                            <xsl:value-of select="receipt/city"/>
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
@@ -120,12 +120,12 @@
                 <fo:table-row>
                     <fo:table-cell>
                         <fo:block>
-                            <xsl:value-of select="voucher/state"/>
+                            <xsl:value-of select="receipt/state"/>
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                         <fo:block>
-                            <xsl:value-of select="voucher/cuit"/>
+                            <xsl:value-of select="receipt/cuit"/>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
@@ -202,52 +202,56 @@
                         </fo:table-row>
                     </xsl:when>
                 </xsl:choose>
-                <xsl:for-each select="billItems">
-                    <fo:table-row>
-                        <fo:table-cell padding="1px 0px 1px 2px" border-right="solid 0.3mm black">
-                            <fo:block>
-                                <xsl:value-of select="billNumber"/>
-                            </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell padding="1px 0px 1px 0px" border-right="solid 0.3mm black" text-align="center">
-                            <fo:block>
-                                <xsl:value-of select="date"/>
-                            </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell padding="1px 2px 1px 0px" border-right="solid 0.3mm black" text-align="right">
+                <xsl:choose>
+                    <xsl:when test="billItems">
+                        <xsl:for-each select="billItems">
                             <xsl:choose>
                                 <xsl:when test="amount >= 0">
-                                    <fo:block>
-                                        <xsl:value-of
-                                                select="format-number(amount, '###.###.##0,00', 'decimalFormat')"/>
-                                    </fo:block>
+                                    <fo:table-row>
+                                        <fo:table-cell padding="1px 0px 1px 2px" border-right="solid 0.3mm black">
+                                            <fo:block>
+                                                <xsl:value-of select="billNumber"/>
+                                            </fo:block>
+                                        </fo:table-cell>
+                                        <fo:table-cell padding="1px 0px 1px 0px" border-right="solid 0.3mm black" text-align="center">
+                                            <fo:block>
+                                                <xsl:value-of select="date"/>
+                                            </fo:block>
+                                        </fo:table-cell>
+                                        <fo:table-cell padding="1px 2px 1px 0px" border-right="solid 0.3mm black" text-align="right">
+                                            <fo:block>
+                                                <xsl:value-of
+                                                    select="format-number(amount, '###.###.##0,00', 'decimalFormat')"/>
+                                            </fo:block>
+                                        </fo:table-cell>
+                                        <fo:table-cell padding="1px 2px 1px 0px" text-align="right">
+                                            <fo:block>
+                                                <xsl:value-of
+                                                    select="format-number(imputed, '###.###.##0,00', 'decimalFormat')"/>
+                                            </fo:block>
+                                        </fo:table-cell>
+                                    </fo:table-row>
                                 </xsl:when>
-                                <xsl:otherwise>
-                                    <fo:block>
-                                        <xsl:value-of
-                                                select="format-number(amount * -1, '(###.###.##0,00)', 'decimalFormat')"/>
-                                    </fo:block>
-                                </xsl:otherwise>
                             </xsl:choose>
-                        </fo:table-cell>
-                        <fo:table-cell padding="1px 2px 1px 0px" text-align="right">
-                            <xsl:choose>
-                                <xsl:when test="imputed >= 0">
-                                    <fo:block>
-                                        <xsl:value-of
-                                                select="format-number(imputed, '###.###.##0,00', 'decimalFormat')"/>
-                                    </fo:block>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <fo:block>
-                                        <xsl:value-of
-                                                select="format-number(imputed * -1, '(###.###.##0,00)', 'decimalFormat')"/>
-                                    </fo:block>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </fo:table-cell>
-                    </fo:table-row>
-                </xsl:for-each>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <fo:table-row>
+                            <fo:table-cell padding-top="10px" border-right="solid 0.3mm black">
+                                <fo:block></fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding-top="10px" border-right="solid 0.3mm black">
+                                <fo:block></fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding-top="10px" border-right="solid 0.3mm black">
+                                <fo:block></fo:block>
+                            </fo:table-cell>
+                            <fo:table-cell padding-top="10px" >
+                                <fo:block></fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </xsl:otherwise>
+                </xsl:choose>
             </fo:table-body>
         </fo:table>
         <fo:table table-layout="fixed" width="100%" border-left="solid 0.3mm black" border-right="solid 0.3mm black"
@@ -282,76 +286,103 @@
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:choose>
-                    <xsl:when test="isLast = 'true'">
-                        <fo:table-row>
-                            <fo:table-cell padding="2px 0px 1px 1px">
-                                <fo:block>Sub Total</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="2px 1px 1px 0px">
-                                <fo:block>&#160;</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="2px 2px 1px 0px" font-style="italic" text-align="right">
-                                <fo:block>
-                                    <xsl:value-of
-                                            select="format-number(subTotal, '###.###.##0,00', 'decimalFormat')"/>
-                                </fo:block>
-                            </fo:table-cell>
-                        </fo:table-row>
-                        <fo:table-row>
-                            <fo:table-cell padding="1px 0px 1px 2px">
-                                <fo:block>Dto</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 1px 1px 0px" font-style="italic">
-                                <fo:block>
-                                    <xsl:value-of select="discountCode"/>
-                                </fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
-                                <fo:block>
-                                    <xsl:value-of
-                                            select="format-number(discount, '###.###.##0,00', 'decimalFormat')"/>
-                                </fo:block>
-                            </fo:table-cell>
-                        </fo:table-row>
-                        <fo:table-row>
-                            <fo:table-cell padding="1px 0px 1px 2px">
-                                <fo:block>Neto</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 1px 1px 0px">
-                                <fo:block>&#160;</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
-                                <fo:block>
-                                    <xsl:value-of
-                                            select="format-number(netSubTotal, '###.###.##0,00', 'decimalFormat')"/>
-                                </fo:block>
-                            </fo:table-cell>
-                        </fo:table-row>
-                        <fo:table-row>
-                            <fo:table-cell padding="1px 0px 1px 2px">
-                                <fo:block>A Cuenta</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 1px 1px 0px">
-                                <fo:block>&#160;</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
-                                <fo:block>0,00</fo:block>
-                            </fo:table-cell>
-                        </fo:table-row>
-                        <fo:table-row>
-                            <fo:table-cell padding="1px 0px 1px 2px">
-                                <fo:block>Total</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 1px 1px 0px">
-                                <fo:block>&#160;</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
-                                <fo:block>
-                                    <xsl:value-of
-                                            select="format-number(voucherTotal, '###.###.##0,00', 'decimalFormat')"/>
-                                </fo:block>
-                            </fo:table-cell>
-                        </fo:table-row>
+                    <xsl:when test="isLast = 'true' and billItems">
+                                <fo:table-row>
+                                    <fo:table-cell padding="2px 0px 1px 1px">
+                                        <fo:block>Sub Total</fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell padding="2px 1px 1px 0px">
+                                        <fo:block>&#160;</fo:block>
+                                    </fo:table-cell>
+                                    <xsl:choose>
+                                        <xsl:when test="subTotal != ''">
+                                            <fo:table-cell padding="2px 2px 1px 0px" font-style="italic" text-align="right">
+                                                <fo:block>
+                                                    <xsl:value-of
+                                                        select="format-number(subTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                                </fo:block>
+                                            </fo:table-cell>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <fo:table-cell padding="2px 2px 1px 0px" font-style="italic" text-align="right">
+                                                <fo:block></fo:block>
+                                            </fo:table-cell>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </fo:table-row>
+                                <fo:table-row>
+                                    <fo:table-cell padding="1px 0px 1px 2px">
+                                        <fo:block>Dto</fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell padding="1px 1px 1px 0px" font-style="italic">
+                                        <fo:block>
+                                            <xsl:value-of select="discountCode"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <xsl:choose>
+                                        <xsl:when test="discount != ''">
+                                            <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
+                                                <fo:block>
+                                                    <xsl:value-of
+                                                        select="format-number(discount, '###.###.##0,00', 'decimalFormat')"/>
+                                                </fo:block>
+                                            </fo:table-cell>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
+                                                <fo:block></fo:block>
+                                            </fo:table-cell>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </fo:table-row>
+                                <fo:table-row>
+                                    <fo:table-cell padding="1px 0px 1px 2px">
+                                        <fo:block>Neto</fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell padding="1px 1px 1px 0px">
+                                        <fo:block>&#160;</fo:block>
+                                    </fo:table-cell>
+                                    <xsl:choose>
+                                        <xsl:when test="netSubTotal != ''">
+                                            <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
+                                                <fo:block>
+                                                    <xsl:value-of
+                                                        select="format-number(netSubTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                                </fo:block>
+                                            </fo:table-cell>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
+                                                <fo:block></fo:block>
+                                            </fo:table-cell>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </fo:table-row>
+                                <fo:table-row>
+                                    <fo:table-cell padding="1px 0px 1px 2px">
+                                        <fo:block>A Cuenta</fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell padding="1px 1px 1px 0px">
+                                        <fo:block>&#160;</fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
+                                        <fo:block>0,00</fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row>
+                                    <fo:table-cell padding="1px 0px 1px 2px">
+                                        <fo:block>Total</fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell padding="1px 1px 1px 0px">
+                                        <fo:block>&#160;</fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
+                                        <fo:block>
+                                            <xsl:value-of
+                                                select="format-number(receiptTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
                     </xsl:when>
                 </xsl:choose>
             </fo:table-body>
@@ -417,175 +448,185 @@
                                 <xsl:value-of select="cuit"/>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell padding="1px 0px 1px 2px" border-right="solid 0.3mm black">
-                            <fo:block>
-                                <xsl:value-of select="counterfoil"/>
-                            </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell padding="1px 0px 1px 2px" border-right="solid 0.3mm black">
-                            <fo:block>
-                                <xsl:value-of select="bank"/>
-                            </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell padding="1px 1px 1px 2px" border-right="solid 0.3mm black" text-align="center">
-                            <fo:block>
-                                <xsl:value-of select="date"/>
-                            </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell padding="1px 2px 1px 0px" text-align="right">
-                            <fo:block>
-                                <xsl:value-of select="format-number(amount, '###.###.##0,00', 'decimalFormat')"/>
-                            </fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-                </xsl:for-each>
-                <xsl:choose>
-                    <xsl:when test="pagePaysSubTotal">
-                        <fo:table-row>
-                            <fo:table-cell padding="1px 0px 1px 1px" border="solid 0.3mm black">
-                                <fo:block></fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 0px 1px 0px" border="solid 0.3mm black">
-                                <fo:block></fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 1px 1px 0px" border="solid 0.3mm black">
-                                <fo:block>Sub total</fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 1px 1px 0px" border="solid 0.3mm black"
-                                           text-align="center">
-                                <fo:block></fo:block>
-                            </fo:table-cell>
-                            <fo:table-cell padding="1px 1px 1px 0px" border="solid 0.3mm black" text-align="right">
+                        <xsl:choose>
+                         <xsl:when test="counterfoil != ''">
+                            <fo:table-cell padding="1px 0px 1px 2px" border-right="solid 0.3mm black">
                                 <fo:block>
                                     <xsl:value-of
-                                            select="format-number(pagePaysSubTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                        select="format-number(counterfoil, '###.###.###', 'decimalFormat')"/>
                                 </fo:block>
                             </fo:table-cell>
-                        </fo:table-row>
-                    </xsl:when>
-                </xsl:choose>
-            </fo:table-body>
-        </fo:table>
-    </xsl:template>
+                          </xsl:when>
+                         <xsl:otherwise>
+                             <fo:table-cell  padding="1px 0px 1px 2px" border-right="solid 0.3mm black">
+                                 <fo:block></fo:block>
+                             </fo:table-cell>
+                         </xsl:otherwise>
+                        </xsl:choose>
+                         <fo:table-cell padding="1px 0px 1px 2px" border-right="solid 0.3mm black">
+                             <fo:block>
+                                 <xsl:value-of select="bank"/>
+                             </fo:block>
+                         </fo:table-cell>
+                         <fo:table-cell padding="1px 1px 1px 2px" border-right="solid 0.3mm black" text-align="center">
+                             <fo:block>
+                                 <xsl:value-of select="date"/>
+                             </fo:block>
+                         </fo:table-cell>
+                         <fo:table-cell padding="1px 2px 1px 0px" text-align="right">
+                             <fo:block>
+                                 <xsl:value-of select="format-number(amount, '###.###.##0,00', 'decimalFormat')"/>
+                             </fo:block>
+                         </fo:table-cell>
+                     </fo:table-row>
+                 </xsl:for-each>
+                 <xsl:choose>
+                     <xsl:when test="pagePaysSubTotal">
+                         <fo:table-row>
+                             <fo:table-cell padding="1px 0px 1px 1px" border="solid 0.3mm black">
+                                 <fo:block></fo:block>
+                             </fo:table-cell>
+                             <fo:table-cell padding="1px 0px 1px 0px" border="solid 0.3mm black">
+                                 <fo:block></fo:block>
+                             </fo:table-cell>
+                             <fo:table-cell padding="1px 1px 1px 0px" border="solid 0.3mm black">
+                                 <fo:block>Sub total</fo:block>
+                             </fo:table-cell>
+                             <fo:table-cell padding="1px 1px 1px 0px" border="solid 0.3mm black"
+                                            text-align="center">
+                                 <fo:block></fo:block>
+                             </fo:table-cell>
+                             <fo:table-cell padding="1px 1px 1px 0px" border="solid 0.3mm black" text-align="right">
+                                 <fo:block>
+                                     <xsl:value-of
+                                             select="format-number(pagePaysSubTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                 </fo:block>
+                             </fo:table-cell>
+                         </fo:table-row>
+                     </xsl:when>
+                 </xsl:choose>
+             </fo:table-body>
+         </fo:table>
+     </xsl:template>
 
-    <xsl:template name="seccionTotales">
-        <xsl:choose>
-            <xsl:when test="isLast = 'true'">
-                <fo:block>
-                    <fo:table table-layout="fixed" width="100%" border="none" font-size="8pt">
-                        <fo:table-column column-width="55%"/>
-                        <fo:table-column column-width="10%"/>
-                        <fo:table-column column-width="15%"/>
-                        <fo:table-column column-width="20%"/>
-                        <fo:table-body>
-                            <xsl:choose>
-                                <xsl:when test="chequeTotal > 0">
-                                    <fo:table-row>
-                                        <fo:table-cell padding="10px 0px 0px 0px">
-                                            <fo:block>&#160;</fo:block>
-                                        </fo:table-cell>
-                                        <fo:table-cell padding="10px 0px 0px 0px" text-align="right">
-                                            <fo:block>Cheque</fo:block>
-                                        </fo:table-cell>
-                                        <fo:table-cell padding="10px 0px 0px 0px" text-align="right">
-                                            <fo:block>
-                                                <xsl:value-of
-                                                        select="format-number(chequeTotal, '###.###.##0,00', 'decimalFormat')"/>
-                                            </fo:block>
-                                        </fo:table-cell>
-                                        <fo:table-cell padding="2px 0px 0px 0px">
-                                            <fo:block>&#160;</fo:block>
-                                        </fo:table-cell>
-                                    </fo:table-row>
-                                </xsl:when>
-                            </xsl:choose>
-                            <xsl:choose>
-                                <xsl:when test="cashTotal > 0">
-                                    <fo:table-row>
-                                        <fo:table-cell padding="2px 0px 0px 0px">
-                                            <fo:block>&#160;</fo:block>
-                                        </fo:table-cell>
-                                        <fo:table-cell padding="2px 0px 0px 0px" text-align="right">
-                                            <fo:block>Efectivo</fo:block>
-                                        </fo:table-cell>
-                                        <fo:table-cell padding="2px 0px 0px 0px" text-align="right">
-                                            <fo:block>
-                                                <xsl:value-of
-                                                        select="format-number(cashTotal, '###.###.##0,00', 'decimalFormat')"/>
-                                            </fo:block>
-                                        </fo:table-cell>
-                                        <fo:table-cell padding="2px 0px 0px 0px">
-                                            <fo:block>&#160;</fo:block>
-                                        </fo:table-cell>
-                                    </fo:table-row>
-                                </xsl:when>
-                            </xsl:choose>
-                            <xsl:choose>
-                                <xsl:when test="retentionsTotal > 0">
-                                    <fo:table-row>
-                                        <fo:table-cell padding="10px 0px 0px 0px">
-                                            <fo:block>&#160;</fo:block>
-                                        </fo:table-cell>
-                                        <fo:table-cell padding="10px 0px 0px 0px" text-align="right">
-                                            <fo:block>Retenciones</fo:block>
-                                        </fo:table-cell>
-                                        <fo:table-cell padding="10px 0px 0px 0px" text-align="right">
-                                            <fo:block>
-                                                <xsl:value-of
-                                                        select="format-number(retentionsTotal, '###.###.##0,00', 'decimalFormat')"/>
-                                            </fo:block>
-                                        </fo:table-cell>
-                                        <fo:table-cell padding="2px 0px 0px 0px">
-                                            <fo:block>&#160;</fo:block>
-                                        </fo:table-cell>
-                                    </fo:table-row>
-                                </xsl:when>
-                            </xsl:choose>
-                            <fo:table-row>
-                                <fo:table-cell padding="2px 0px 0px 0px">
-                                    <fo:block>&#160;</fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell padding="2px 0px 0px 0px" text-align="right" font-weight="bold"
-                                               font-style="italic">
-                                    <fo:block>Total</fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell padding="2px 0px 0px 0px" text-align="right" font-weight="bold"
-                                               font-style="italic">
-                                    <fo:block>
-                                        <xsl:value-of
-                                                select="format-number(voucherTotal, '###.###.##0,00', 'decimalFormat')"/>
-                                    </fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell padding="2px 0px 0px 0px">
-                                    <fo:block>&#160;</fo:block>
-                                </fo:table-cell>
-                            </fo:table-row>
-                        </fo:table-body>
-                    </fo:table>
-                </fo:block>
-            </xsl:when>
-            <xsl:otherwise>
-                <fo:block>&#160;</fo:block>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
+     <xsl:template name="seccionTotales">
+         <xsl:choose>
+             <xsl:when test="isLast = 'true'">
+                 <fo:block>
+                     <fo:table table-layout="fixed" width="100%" border="none" font-size="8pt">
+                         <fo:table-column column-width="55%"/>
+                         <fo:table-column column-width="10%"/>
+                         <fo:table-column column-width="15%"/>
+                         <fo:table-column column-width="20%"/>
+                         <fo:table-body>
+                             <xsl:choose>
+                                 <xsl:when test="receipt/chequeTotal > 0">
+                                     <fo:table-row>
+                                         <fo:table-cell padding="10px 0px 0px 0px">
+                                             <fo:block>&#160;</fo:block>
+                                         </fo:table-cell>
+                                         <fo:table-cell padding="10px 0px 0px 0px" text-align="right">
+                                             <fo:block>Cheque</fo:block>
+                                         </fo:table-cell>
+                                         <fo:table-cell padding="10px 0px 0px 0px" text-align="right">
+                                             <fo:block>
+                                                 <xsl:value-of
+                                                     select="format-number(receipt/chequeTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                             </fo:block>
+                                         </fo:table-cell>
+                                         <fo:table-cell padding="2px 0px 0px 0px">
+                                             <fo:block>&#160;</fo:block>
+                                         </fo:table-cell>
+                                     </fo:table-row>
+                                 </xsl:when>
+                             </xsl:choose>
+                             <xsl:choose>
+                                 <xsl:when test="receipt/cashTotal > 0">
+                                     <fo:table-row>
+                                         <fo:table-cell padding="2px 0px 0px 0px">
+                                             <fo:block>&#160;</fo:block>
+                                         </fo:table-cell>
+                                         <fo:table-cell padding="2px 0px 0px 0px" text-align="right">
+                                             <fo:block>Efectivo</fo:block>
+                                         </fo:table-cell>
+                                         <fo:table-cell padding="2px 0px 0px 0px" text-align="right">
+                                             <fo:block>
+                                                 <xsl:value-of
+                                                     select="format-number(receipt/cashTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                             </fo:block>
+                                         </fo:table-cell>
+                                         <fo:table-cell padding="2px 0px 0px 0px">
+                                             <fo:block>&#160;</fo:block>
+                                         </fo:table-cell>
+                                     </fo:table-row>
+                                 </xsl:when>
+                             </xsl:choose>
+                             <xsl:choose>
+                                 <xsl:when test="receipt/retentionTotal > 0">
+                                     <fo:table-row>
+                                         <fo:table-cell padding="10px 0px 0px 0px">
+                                             <fo:block>&#160;</fo:block>
+                                         </fo:table-cell>
+                                         <fo:table-cell padding="10px 0px 0px 0px" text-align="right">
+                                             <fo:block>Retenciones</fo:block>
+                                         </fo:table-cell>
+                                         <fo:table-cell padding="10px 0px 0px 0px" text-align="right">
+                                             <fo:block>
+                                                 <xsl:value-of
+                                                     select="format-number(receipt/retentionTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                             </fo:block>
+                                         </fo:table-cell>
+                                         <fo:table-cell padding="2px 0px 0px 0px">
+                                             <fo:block>&#160;</fo:block>
+                                         </fo:table-cell>
+                                     </fo:table-row>
+                                 </xsl:when>
+                             </xsl:choose>
+                             <fo:table-row>
+                                 <fo:table-cell padding="2px 0px 0px 0px">
+                                     <fo:block>&#160;</fo:block>
+                                 </fo:table-cell>
+                                 <fo:table-cell padding="2px 0px 0px 0px" text-align="right" font-weight="bold"
+                                                font-style="italic">
+                                     <fo:block>Total</fo:block>
+                                 </fo:table-cell>
+                                 <fo:table-cell padding="2px 0px 0px 0px" text-align="right" font-weight="bold"
+                                                font-style="italic">
+                                     <fo:block>
+                                         <xsl:value-of
+                                                 select="format-number(receipt/receiptTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                     </fo:block>
+                                 </fo:table-cell>
+                                 <fo:table-cell padding="2px 0px 0px 0px">
+                                     <fo:block>&#160;</fo:block>
+                                 </fo:table-cell>
+                             </fo:table-row>
+                         </fo:table-body>
+                     </fo:table>
+                 </fo:block>
+             </xsl:when>
+             <xsl:otherwise>
+                 <fo:block>&#160;</fo:block>
+             </xsl:otherwise>
+         </xsl:choose>
+     </xsl:template>
 
-    <xsl:template name="seccionNumeroPagina">
-        <fo:table table-layout="fixed" bottom="0" width="95%" border="none" font-size="8pt" font-style="italic"
-                  text-align="right">
-            <fo:table-column column-width="100%"/>
-            <fo:table-body>
-                <fo:table-row>
-                    <fo:table-cell padding="8px 0px 8px 0px">
-                        <fo:block>Página
-                            <xsl:value-of select="position()"/> de
-                            <xsl:value-of select="last()"/>
-                        </fo:block>
-                    </fo:table-cell>
-                </fo:table-row>
-            </fo:table-body>
-        </fo:table>
-    </xsl:template>
+     <xsl:template name="seccionNumeroPagina">
+         <fo:table table-layout="fixed" bottom="0" width="95%" border="none" font-size="8pt" font-style="italic"
+                   text-align="right">
+             <fo:table-column column-width="100%"/>
+             <fo:table-body>
+                 <fo:table-row>
+                     <fo:table-cell padding="8px 0px 8px 0px">
+                         <fo:block>Página
+                             <xsl:value-of select="position()"/> de
+                             <xsl:value-of select="last()"/>
+                         </fo:block>
+                     </fo:table-cell>
+                 </fo:table-row>
+             </fo:table-body>
+         </fo:table>
+     </xsl:template>
 
 
-</xsl:stylesheet>
+ </xsl:stylesheet>

@@ -545,14 +545,14 @@
         </fo:inline-container>
         <fo:inline-container inline-progression-dimension="50%">
             <xsl:choose>
-                <xsl:when test="not(voucher/expirationDate = '')
+                <xsl:when test="not(voucher/caieExpirationDate = '')
                 and not(voucher/caie = null)
                 and not(voucher/caie = '')">
                     <fo:block>
                         CAE N°:
                         <xsl:value-of select="voucher/caie"/>
                         - Vencimiento:
-                        <xsl:value-of select="voucher/expirationDate"/>
+                        <xsl:value-of select="voucher/caieExpirationDate"/>
                     </fo:block>
                 </xsl:when>
                 <xsl:otherwise>

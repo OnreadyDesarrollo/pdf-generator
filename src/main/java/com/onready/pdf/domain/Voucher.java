@@ -51,11 +51,11 @@ public class Voucher {
   private String city;
   private String sellerCode;
 
-  private String expirationDate;
+  private String caieExpirationDate;
 
   private List<ItemVoucher> items;
 
-  public String getExpirationDate() {
+  public String getCaieExpirationDate() {
     SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
     try {
       return formater.format(this.getCaieDueDate());
