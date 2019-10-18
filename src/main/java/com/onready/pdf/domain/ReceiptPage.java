@@ -10,6 +10,7 @@ public class ReceiptPage {
 
   private List<ReceiptBillItem> billItems;
   private List<ReceiptPayItem> payItems;
+  private Receipt receipt;
   private BigDecimal pageBillsSubTotal;
   private BigDecimal previousPageBillsSubTotal;
   private BigDecimal pagePaysSubTotal;

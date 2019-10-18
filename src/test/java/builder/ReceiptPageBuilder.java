@@ -1,5 +1,6 @@
 package builder;
 
+import com.onready.pdf.domain.Receipt;
 import com.onready.pdf.domain.ReceiptBillItem;
 import com.onready.pdf.domain.ReceiptPage;
 import com.onready.pdf.domain.ReceiptPayItem;
@@ -11,8 +12,17 @@ public class ReceiptPageBuilder {
 
   private ReceiptPage receiptPage;
 
-  public ReceiptPageBuilder() {
+  private ReceiptPageBuilder() {
     this.receiptPage = new ReceiptPage();
+  }
+
+  public static ReceiptPageBuilder instanceOf() {
+    return new ReceiptPageBuilder();
+  }
+
+  public ReceiptPageBuilder withReceipt(Receipt receipt) {
+    receiptPage.setReceipt(receipt);
+    return this;
   }
 
   public ReceiptPageBuilder withBillItems(List<ReceiptBillItem> billItems) {

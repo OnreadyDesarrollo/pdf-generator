@@ -12,7 +12,7 @@ public class ReceiptBuilder {
 
   private Receipt receipt;
 
-  public ReceiptBuilder() {
+  private ReceiptBuilder() {
     this.receipt = new Receipt();
   }
 
@@ -45,7 +45,7 @@ public class ReceiptBuilder {
     return this;
   }
 
-  public ReceiptBuilder withAddress(String address) {
+  public ReceiptBuilder withAddress(  String address) {
     receipt.setAddress(address);
     return this;
   }

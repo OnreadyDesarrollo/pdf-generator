@@ -36,7 +36,7 @@ public class PdfGenerator {
           .getClassLoader()
           .getResourceAsStream(templatePath.toString()), voucherPages);
     } catch (PDFCreationException | NullPointerException e) {
-      String message = "VoucherPages is not valid " + e.getMessage();
+      String message = "VoucherPages is not valid. Error: " + e.getMessage();
       log.error(message);
       throw new IllegalArgumentException(message);
     }
@@ -44,15 +44,14 @@ public class PdfGenerator {
 
   public byte[] getReceiptPdf(List<ReceiptPage> receiptPages) {
     try {
-      String templatePath = new StringBuilder("static")
-          .append(File.separator).append("comprobantes")
+      String templatePath = new StringBuilder("comprobantes")
           .append(File.separator).append("template-RC")
           .append(XSL_EXTENSION).toString();
       return pdfCreationUtil.generateFile(this.getClass()
           .getClassLoader()
           .getResourceAsStream(templatePath), receiptPages);
     } catch (PDFCreationException | NullPointerException e) {
-      String message = "ReceiptPages is not valid" + e.getMessage();
+      String message = "ReceiptPages is not valid. Error: " + e.getMessage();
       log.error(message);
       throw new IllegalArgumentException(message);
     }
