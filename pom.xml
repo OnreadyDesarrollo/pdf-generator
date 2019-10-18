@@ -20,6 +20,17 @@
     </properties>
 
     <build>
+        <resources>
+            <resource>
+                <directory>/</directory>
+                <includes>
+                    <include>fonts/PF_I2OF5.ttf</include>
+                    <include>logos/logo-avellaneda.jpg</include>
+                    <include>logos/logo-bba.jpg</include>
+                    <include>logos/logo-cromosol.png</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -94,7 +105,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.26</version>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.6.4</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>

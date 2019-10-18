@@ -40,7 +40,7 @@
 
     <xsl:template name="logo">
         <fo:block text-align="left">
-            <fo:external-graphic src="url('classpath:comprobantes/logo-bba.jpg')"
+            <fo:external-graphic src="url('logos/logo-bba.jpg')"
                                  content-height="25mm"
                                  scaling="uniform"/>
         </fo:block>

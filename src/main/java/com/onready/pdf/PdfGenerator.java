@@ -36,7 +36,7 @@ public class PdfGenerator {
           .getClassLoader()
           .getResourceAsStream(templatePath.toString()), voucherPages);
     } catch (PDFCreationException | NullPointerException e) {
-      String message = "VoucherPages is not valid" + e.getMessage();
+      String message = "VoucherPages is not valid " + e.getMessage();
       log.error(message);
       throw new IllegalArgumentException(message);
     }

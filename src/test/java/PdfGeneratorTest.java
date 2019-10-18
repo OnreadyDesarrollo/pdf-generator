@@ -8,6 +8,7 @@ import com.onready.pdf.domain.VoucherPage;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -106,6 +107,7 @@ public class PdfGeneratorTest {
         .build();
 
     Voucher voucher = VoucherBuilder.instanceOf()
+        .withVoucherDate(new Date("2019-08-10"))
         .build();
 
     VoucherPage voucherPage = VoucherPageBuilder.instanceOf()
