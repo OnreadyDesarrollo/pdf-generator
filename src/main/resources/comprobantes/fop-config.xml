@@ -24,7 +24,7 @@
                     <font-triplet name="Arial" style="normal" weight="bold"/>
                     <font-triplet name="ArialMT" style="normal" weight="bold"/>
                 </font>
-                <font kerning="yes" embed-url="fonts/PF_I2OF5.ttf">
+                <font kerning="yes" embed-url="https://sla-comprobantes.s3-us-west-2.amazonaws.com/fuente/PF_I2OF5.ttf">
                     <font-triplet name="pf_interleaved_2_of_5regular" style="normal" weight="normal"/>
                 </font>
             </fonts>

@@ -339,7 +339,7 @@
                         </fo:table-cell>
                         <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
                             <fo:block>
-                                <xsl:value-of select="items/dispatch"/>
+                                <xsl:value-of select="dispatch"/>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell text-align="right" padding="1px 0px 1px 0px">
@@ -381,7 +381,7 @@
                 </fo:table-cell>
                 <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
                     <fo:block>
-                        <xsl:value-of select="items/dispatch"/>
+                        <xsl:value-of select="dispatch"/>
                     </fo:block>
                 </fo:table-cell>
                 <fo:table-cell text-align="right" padding="1px 0px 1px 0px">

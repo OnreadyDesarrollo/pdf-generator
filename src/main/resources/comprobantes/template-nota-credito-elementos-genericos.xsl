@@ -312,7 +312,7 @@
                 </fo:table-row>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:for-each select="items/item">
+                <xsl:for-each select="items/items">
                     <fo:table-row font-size="8pt">
                         <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
                             <fo:block>
@@ -332,7 +332,7 @@
                         </fo:table-cell>
                         <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
                             <fo:block>
-                                <xsl:value-of select="item/dispatch"/>
+                                <xsl:value-of select="dispatch"/>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell text-align="right" padding="1px 0px 1px 0px">
@@ -354,7 +354,7 @@
     </xsl:template>
 
     <xsl:template name="itemsBBA">
-        <xsl:for-each select="items/item">
+        <xsl:for-each select="items/items">
             <fo:table-row font-size="8pt">
                 <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
                     <fo:block>
@@ -374,7 +374,7 @@
                 </fo:table-cell>
                 <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
                     <fo:block>
-                        <xsl:value-of select="item/dispatch"/>
+                        <xsl:value-of select="dispatch"/>
                     </fo:block>
                 </fo:table-cell>
                 <fo:table-cell text-align="right" padding="1px 0px 1px 0px">

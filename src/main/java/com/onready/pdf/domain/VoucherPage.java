@@ -11,5 +11,5 @@ public class VoucherPage {
   private ItemVoucher[] items;
   private BigDecimal pageSubTotal;
   private BigDecimal previousPageSubTotal;
-
+  private String graphicsUri;
 }
