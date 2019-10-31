@@ -615,7 +615,7 @@
                         CAE N°:
                         <xsl:value-of select="voucher/caie"/>
                         - Vencimiento:
-                        <xsl:value-of select="voucher/expirationDate"/>
+                        <xsl:value-of select="voucher/caieExpirationDate"/>
                     </fo:block>
                 </xsl:when>
                 <xsl:otherwise>

@@ -56,9 +56,9 @@ public class Voucher {
   private List<ItemVoucher> items;
 
   public String getCaieExpirationDate() {
-    SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     try {
-      return formater.format(this.getCaieDueDate());
+      return formatter.format(this.getCaieDueDate());
     } catch (NullPointerException ignored) {
       log.info("El campo [VtoCAIE] está vacío");
       return "";
@@ -66,7 +66,7 @@ public class Voucher {
   }
 
   public String getVoucherDate() {
-    SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
-    return formater.format(this.voucherDate);
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    return formatter.format(this.voucherDate);
   }
 }

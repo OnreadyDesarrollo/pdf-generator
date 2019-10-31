@@ -1,16 +1,17 @@
 package com.onready.pdf;
 
-import com.onready.pdf.domain.LogoFilenameEnum;
-import com.onready.pdf.domain.ReceiptPage;
-import com.onready.pdf.domain.Voucher;
-import com.onready.pdf.domain.VoucherPage;
+import com.onready.pdf.domain.*;
 import com.onready.pdf.exception.PDFCreationException;
 import com.onready.pdf.utils.PdfCreationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.ListUtils;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 
 @Slf4j
@@ -43,6 +44,35 @@ public class PdfGenerator {
       log.error(message);
       throw new IllegalArgumentException(message);
     }
+  }
+
+  public static List<VoucherPage> paginateVoucher(Voucher voucher) {
+    List<VoucherPage> voucherPages = new LinkedList<>();
+    List<List<ItemVoucher>> itemPartitions = ListUtils.partition(voucher.getItems(), 30);
+    for (int i = 0; i < itemPartitions.size(); i++) {
+      List<ItemVoucher> partition = itemPartitions.get(i);
+      VoucherPage voucherPage = new VoucherPage();
+      voucherPage.setVoucher(voucher);
+      voucherPage.setItems(partition.toArray(new ItemVoucher[0]));
+      if (i < itemPartitions.size() - 1) {
+        BigDecimal pageSubTotal;
+        if (i == 0) {
+          pageSubTotal = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+        } else {
+          pageSubTotal = voucherPages.get(i - 1).getPageSubTotal();
+        }
+        for (ItemVoucher itemVoucher : partition) {
+          pageSubTotal = pageSubTotal.add(
+              itemVoucher.getTotalAmount().setScale(2, RoundingMode.HALF_UP));
+        }
+        voucherPage.setPageSubTotal(pageSubTotal);
+      }
+      if (i > 0) {
+        voucherPage.setPreviousPageSubTotal(voucherPages.get(i - 1).getPageSubTotal());
+      }
+      voucherPages.add(voucherPage);
+    }
+    return voucherPages;
   }
 
   public byte[] getReceiptPdf(List<ReceiptPage> receiptPages) {
