@@ -92,7 +92,7 @@ public class PdfGenerator {
 
   private String getLogoPath(String voucherCompany, boolean isAve) {
     URL localPath = PdfGenerator.class.getProtectionDomain().getCodeSource().getLocation();
-    return "jar:" + localPath + "!/comprobantes/logos/logo-" + this.getLogoName(voucherCompany, isAve);
+    return localPath + "comprobantes/logos/logo-" + this.getLogoName(voucherCompany, isAve);
   }
 
   private String getLogoName(String company, boolean isAve) {
