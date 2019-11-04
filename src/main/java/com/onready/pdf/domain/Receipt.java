@@ -1,5 +1,6 @@
 package com.onready.pdf.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -18,7 +19,21 @@ public class Receipt {
   private String state;
   private String city;
   private String sellerCode;
-
+  private int sucursal;
+  private int voucherNumber;
+  private String voucherLetter;
+  private String barCode;
+  private int itemQuantity;
+  private BigDecimal voucherTotal;
+  private String voucherCode;
+  private int ctaCteTipoComprobanteID;
+  private Date voucherDueDate;
+  private BigDecimal vatAmount;
+  private BigDecimal grossIncomePerception;
+  private String includedOrders;
+  private String expeditions;
+  private String observations;
+  private String electronicBill;
   private Date voucherDate;
   private String formattedNumber;
   private String discountCode;
@@ -29,6 +44,11 @@ public class Receipt {
   private BigDecimal chequeTotal;
   private BigDecimal retentionTotal;
   private BigDecimal receiptTotal;
+  @JsonProperty("caietype")
+  private String caieType;
+  private String caie;
+  @JsonProperty("caiedueDate")
+  private Date caieDueDate;
 
   private List<ReceiptBillItem> receiptBillItems;
   private List<ReceiptPayItem> receiptPayItems;
