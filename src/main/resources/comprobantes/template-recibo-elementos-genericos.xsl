@@ -204,7 +204,7 @@
                 </xsl:choose>
                 <xsl:choose>
                     <xsl:when test="billItems">
-                        <xsl:for-each select="billItems">
+                        <xsl:for-each select="billItems/billItems">
                             <xsl:choose>
                                 <xsl:when test="amount >= 0">
                                     <fo:table-row>
@@ -261,7 +261,7 @@
             <fo:table-column column-width="33%"/>
             <fo:table-body>
                 <xsl:choose>
-                    <xsl:when test="pageBillsSubTotal">
+                    <xsl:when test="pageBillsSubTotal != null">
                         <fo:table-row>
                             <fo:table-cell padding="2px 0px 1px 1px">
                                 <fo:block>Sub Total</fo:block>
@@ -295,11 +295,11 @@
                                         <fo:block>&#160;</fo:block>
                                     </fo:table-cell>
                                     <xsl:choose>
-                                        <xsl:when test="subTotal != ''">
+                                        <xsl:when test="receipt/subTotal != ''">
                                             <fo:table-cell padding="2px 2px 1px 0px" font-style="italic" text-align="right">
                                                 <fo:block>
                                                     <xsl:value-of
-                                                        select="format-number(subTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                                        select="format-number(receipt/subTotal, '###.###.##0,00', 'decimalFormat')"/>
                                                 </fo:block>
                                             </fo:table-cell>
                                         </xsl:when>
@@ -316,15 +316,15 @@
                                     </fo:table-cell>
                                     <fo:table-cell padding="1px 1px 1px 0px" font-style="italic">
                                         <fo:block>
-                                            <xsl:value-of select="discountCode"/>
+                                            <xsl:value-of select="receipt/discountCode"/>
                                         </fo:block>
                                     </fo:table-cell>
                                     <xsl:choose>
-                                        <xsl:when test="discount != ''">
+                                        <xsl:when test="receipt/discount != ''">
                                             <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
                                                 <fo:block>
                                                     <xsl:value-of
-                                                        select="format-number(discount, '###.###.##0,00', 'decimalFormat')"/>
+                                                        select="format-number(receipt/discount, '###.###.##0,00', 'decimalFormat')"/>
                                                 </fo:block>
                                             </fo:table-cell>
                                         </xsl:when>
@@ -343,11 +343,11 @@
                                         <fo:block>&#160;</fo:block>
                                     </fo:table-cell>
                                     <xsl:choose>
-                                        <xsl:when test="netSubTotal != ''">
+                                        <xsl:when test="receipt/netSubTotal != ''">
                                             <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
                                                 <fo:block>
                                                     <xsl:value-of
-                                                        select="format-number(netSubTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                                        select="format-number(receipt/netSubTotal, '###.###.##0,00', 'decimalFormat')"/>
                                                 </fo:block>
                                             </fo:table-cell>
                                         </xsl:when>
@@ -379,7 +379,7 @@
                                     <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
                                         <fo:block>
                                             <xsl:value-of
-                                                select="format-number(receiptTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                                select="format-number(receipt/voucherTotal, '###.###.##0,00', 'decimalFormat')"/>
                                         </fo:block>
                                     </fo:table-cell>
                                 </fo:table-row>
@@ -441,7 +441,7 @@
                         </fo:table-row>
                     </xsl:when>
                 </xsl:choose>
-                <xsl:for-each select="payItems">
+                <xsl:for-each select="payItems/payItems">
                     <fo:table-row>
                         <fo:table-cell padding="1px 0px 1px 2px" border-right="solid 0.3mm black">
                             <fo:block>
@@ -481,7 +481,7 @@
                      </fo:table-row>
                  </xsl:for-each>
                  <xsl:choose>
-                     <xsl:when test="pagePaysSubTotal">
+                     <xsl:when test="pagePaysSubTotal != null">
                          <fo:table-row>
                              <fo:table-cell padding="1px 0px 1px 1px" border="solid 0.3mm black">
                                  <fo:block></fo:block>
@@ -594,7 +594,7 @@
                                                 font-style="italic">
                                      <fo:block>
                                          <xsl:value-of
-                                                 select="format-number(receipt/receiptTotal, '###.###.##0,00', 'decimalFormat')"/>
+                                                 select="format-number(receipt/voucherTotal, '###.###.##0,00', 'decimalFormat')"/>
                                      </fo:block>
                                  </fo:table-cell>
                                  <fo:table-cell padding="2px 0px 0px 0px">

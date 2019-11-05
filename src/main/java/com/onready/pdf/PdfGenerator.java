@@ -79,8 +79,8 @@ public class PdfGenerator {
 
   public byte[] getReceiptPdf(List<ReceiptPage> receiptPages) {
     try {
-      String templatePath = new StringBuilder("comprobantes")
-          .append(File.separator).append("template-RC")
+      String templatePath = new StringBuilder("comprobantes/")
+          .append("template-RC")
           .append(XSL_EXTENSION).toString();
       return pdfCreationUtil.generateFile(this.getClass()
           .getClassLoader()

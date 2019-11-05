@@ -50,7 +50,7 @@ public class Receipt {
   @JsonProperty("caiedueDate")
   private Date caieDueDate;
 
-  private List<ReceiptBillItem> receiptBillItems;
-  private List<ReceiptPayItem> receiptPayItems;
+  private List<ReceiptBillItem> receiptVoucherBillItems;
+  private List<ReceiptPayItem> receiptVoucherPayItems;
 
 }
