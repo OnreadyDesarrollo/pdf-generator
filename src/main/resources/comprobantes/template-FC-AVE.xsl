@@ -40,7 +40,7 @@
 
     <xsl:template name="logo">
         <fo:block text-align="center">
-            <fo:external-graphic src="{graphicsUri}"
+            <fo:external-graphic src="url('https://sla-comprobantes.s3-us-west-2.amazonaws.com/logos/logo-avellaneda.jpg')"
                                  content-height="20mm"
                                  scaling="uniform"/>
         </fo:block>

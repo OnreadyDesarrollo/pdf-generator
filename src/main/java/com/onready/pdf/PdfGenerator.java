@@ -1,6 +1,9 @@
 package com.onready.pdf;
 
-import com.onready.pdf.domain.*;
+import com.onready.pdf.domain.ItemVoucher;
+import com.onready.pdf.domain.ReceiptPage;
+import com.onready.pdf.domain.Voucher;
+import com.onready.pdf.domain.VoucherPage;
 import com.onready.pdf.exception.PDFCreationException;
 import com.onready.pdf.utils.PdfCreationUtil;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +13,6 @@ import org.apache.commons.collections4.ListUtils;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class PdfGenerator {
           .append("-")
           .append((isAve ? "AVE" : voucherCompany))
           .append(XSL_EXTENSION);
-      voucherPages.forEach(voucherPage -> voucherPage.setGraphicsUri(this.getLogoPath(voucherCompany, isAve)));
+
       return pdfCreationUtil.generateFile(this.getClass()
           .getClassLoader()
           .getResourceAsStream(templatePath.toString()), voucherPages);
@@ -90,19 +92,5 @@ public class PdfGenerator {
     }
   }
 
-  private String getLogoPath(String voucherCompany, boolean isAve) {
-    URL localPath = PdfGenerator.class.getProtectionDomain().getCodeSource().getLocation();
-    return localPath + "comprobantes/logos/logo-" + this.getLogoName(voucherCompany, isAve);
-  }
-
-  private String getLogoName(String company, boolean isAve) {
-    if (company.equals("CRO")) {
-      return LogoFilenameEnum.CRO.getFilename();
-    } else if (company.equals("BBA") && !isAve) {
-      return LogoFilenameEnum.BBA.getFilename();
-    } else {
-      return LogoFilenameEnum.AVE.getFilename();
-    }
-  }
 
 }

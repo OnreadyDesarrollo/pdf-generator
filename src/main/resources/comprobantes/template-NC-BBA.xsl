@@ -40,7 +40,7 @@
 
     <xsl:template name="logo">
         <fo:block text-align="left">
-            <fo:external-graphic src="{graphicsUri}"
+            <fo:external-graphic src="url('https://sla-comprobantes.s3-us-west-2.amazonaws.com/logos/logo-bba.jpg')"
                                  content-height="25mm"
                                  scaling="uniform"/>
         </fo:block>
