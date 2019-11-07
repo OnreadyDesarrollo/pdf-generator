@@ -11,5 +11,6 @@ public class ReceiptBillItem {
   private String date;
   private BigDecimal amount;
   private BigDecimal imputed;
+  private String voucherCode;
 
 }
