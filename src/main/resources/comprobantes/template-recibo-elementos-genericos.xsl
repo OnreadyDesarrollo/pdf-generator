@@ -296,7 +296,7 @@
             <fo:table-column column-width="33%"/>
             <fo:table-body>
                 <xsl:choose>
-                    <xsl:when test="pageBillsSubTotal != null">
+                    <xsl:when test="pageBillsSubTotal != ''">
                         <fo:table-row>
                             <fo:table-cell padding="2px 0px 1px 1px">
                                 <fo:block>Sub Total</fo:block>

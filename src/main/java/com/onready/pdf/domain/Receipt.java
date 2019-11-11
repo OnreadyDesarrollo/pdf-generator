@@ -56,7 +56,7 @@ public class Receipt {
   private List<ReceiptPayItem> receiptVoucherPayItems;
 
   public String getVoucherDate() {
-    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     return formatter.format(this.voucherDate);
   }
 }
