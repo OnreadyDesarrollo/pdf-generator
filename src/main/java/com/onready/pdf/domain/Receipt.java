@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -54,4 +55,8 @@ public class Receipt {
   private List<ReceiptBillItem> receiptVoucherBillItems;
   private List<ReceiptPayItem> receiptVoucherPayItems;
 
+  public String getVoucherDate() {
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    return formatter.format(this.voucherDate);
+  }
 }
