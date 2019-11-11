@@ -11,10 +11,11 @@ import java.util.List;
 public class Receipt {
 
   private String company;
+  private String companyCuit;
   private String customerId;
   private String businessName;
   private String customerEmail;
-  private String cuit;
+  private String customerCuit;
   private String address;
   private String state;
   private String city;

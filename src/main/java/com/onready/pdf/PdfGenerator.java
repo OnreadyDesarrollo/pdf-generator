@@ -37,7 +37,7 @@ public class PdfGenerator {
           .append("-")
           .append((isAve ? "AVE" : voucherCompany))
           .append(XSL_EXTENSION);
-
+      log.debug("templatePath: " + templatePath);
       return pdfCreationUtil.generateFile(this.getClass()
           .getClassLoader()
           .getResourceAsStream(templatePath.toString()), voucherPages);

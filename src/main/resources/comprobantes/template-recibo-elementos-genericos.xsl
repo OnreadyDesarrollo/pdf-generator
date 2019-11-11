@@ -70,7 +70,7 @@
                     <fo:table-cell font-size="8pt">
                         <fo:block>
                             CUIT:
-                            <xsl:value-of select="receipt/cuit"/>
+                            <xsl:value-of select="receipt/companyCuit"/>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
@@ -125,7 +125,7 @@
                     </fo:table-cell>
                     <fo:table-cell>
                         <fo:block>
-                            <xsl:value-of select="receipt/cuit"/>
+                            <xsl:value-of select="receipt/customerCuit"/>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
