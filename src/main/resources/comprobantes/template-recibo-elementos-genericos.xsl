@@ -346,27 +346,26 @@
                             </xsl:choose>
                         </fo:table-row>
                         <xsl:for-each select="billItems/billItems">
-                            <xsl:when test="voucherCode = 43">
-                                <fo:table-cell padding="1px 0px 1px 2px">
-                                    <fo:block>Dto</fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell padding="1px 0px 1px 2px">
-                                    <fo:block>
-                                        <xsl:value-of select="billNumber"/>
-                                    </fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell padding="1px 0px 1px 2px">
-                                    <fo:block>
-                                        <xsl:value-of
-                                                select="format-number(amount * -1, '###.###.##0,00', 'decimalFormat')"/>
-                                    </fo:block>
-                                </fo:table-cell>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
-                                    <fo:block></fo:block>
-                                </fo:table-cell>
-                            </xsl:otherwise>
+                            <xsl:choose>
+                                <xsl:when test="voucherCode = 43">
+                                    <fo:table-row>
+                                        <fo:table-cell padding="1px 0px 1px 2px">
+                                            <fo:block>Dto</fo:block>
+                                        </fo:table-cell>
+                                        <fo:table-cell padding="1px 0px 1px 2px">
+                                            <fo:block>
+                                                <xsl:value-of select="billNumber"/>
+                                            </fo:block>
+                                        </fo:table-cell>
+                                        <fo:table-cell padding="1px 2px 1px 0px" font-style="italic" text-align="right">
+                                            <fo:block>
+                                                <xsl:value-of
+                                                        select="format-number(amount * -1, '###.###.##0,00', 'decimalFormat')"/>
+                                            </fo:block>
+                                        </fo:table-cell>
+                                    </fo:table-row>
+                                </xsl:when>
+                            </xsl:choose>
                         </xsl:for-each>
                         <fo:table-row>
                             <fo:table-cell padding="1px 0px 1px 2px">
