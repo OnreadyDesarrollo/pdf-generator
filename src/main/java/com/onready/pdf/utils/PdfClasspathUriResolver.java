@@ -1,7 +1,7 @@
 package com.onready.pdf.utils;
 
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +17,15 @@ public class PdfClasspathUriResolver implements URIResolver {
 
   @Override
   public Source resolve(String href, String base) {
+    InputStream inputStream = null;
     try {
-      InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("comprobantes/" + href);
+      inputStream = this.getClass().getClassLoader().getResourceAsStream("comprobantes/" + href);
       return new StreamSource(inputStream);
     } catch (Exception ex) {
       LOGGER.error("Error resolviendo path del pdf", ex);
       return null;
+    } finally {
+      IOUtils.closeQuietly(inputStream);
     }
   }
 }
