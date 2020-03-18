@@ -1,20 +1,19 @@
 package com.onready.pdf;
 
-import com.onready.pdf.domain.ItemVoucher;
-import com.onready.pdf.domain.ReceiptPage;
-import com.onready.pdf.domain.Voucher;
-import com.onready.pdf.domain.VoucherPage;
+import com.onready.pdf.domain.*;
 import com.onready.pdf.exception.PDFCreationException;
 import com.onready.pdf.utils.PdfCreationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.ListUtils;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.IntStream;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -25,6 +24,9 @@ public class PdfGenerator {
   private static final String CROMOSOL_COMPANY = "CRO";
   private static final Long AVELLANEDA_BRANCH = 14L;
   private static final String XSL_EXTENSION = ".xsl";
+
+  private static final Integer ITEM_PARTITION_VOUCHER_SIZE = 30;
+  private static final Integer ITEM_PARTITION_RECEIPT_SIZE = 15;
 
   public byte[] getPdf(List<VoucherPage> voucherPages) {
     try {
@@ -50,7 +52,7 @@ public class PdfGenerator {
 
   public static List<VoucherPage> paginateVoucher(Voucher voucher) {
     List<VoucherPage> voucherPages = new LinkedList<>();
-    List<List<ItemVoucher>> itemPartitions = ListUtils.partition(voucher.getItems(), 30);
+    List<List<ItemVoucher>> itemPartitions = ListUtils.partition(voucher.getItems(), ITEM_PARTITION_VOUCHER_SIZE);
     for (int i = 0; i < itemPartitions.size(); i++) {
       List<ItemVoucher> partition = itemPartitions.get(i);
       VoucherPage voucherPage = new VoucherPage();
@@ -92,5 +94,59 @@ public class PdfGenerator {
     }
   }
 
+  public static List<ReceiptPage> paginateReceipt(Receipt receipt) {
+    List<ReceiptPage> receiptPages = new LinkedList();
+    int longPartitions;
+    List<List<ReceiptBillItem>> billPartitions = ListUtils.partition(
+        receipt.getReceiptVoucherBillItems(), ITEM_PARTITION_RECEIPT_SIZE);
+    List<List<ReceiptPayItem>> payPartitions = ListUtils.partition(
+        receipt.getReceiptVoucherPayItems(), ITEM_PARTITION_RECEIPT_SIZE);
+    if (receipt.getReceiptVoucherBillItems().size() >= receipt.getReceiptVoucherPayItems().size()) {
+      longPartitions = billPartitions.size();
+    } else {
+      longPartitions = payPartitions.size();
+    }
+    IntStream.range(0, longPartitions).forEach(index -> {
+      ReceiptPage receiptPage = new ReceiptPage();
+      receiptPage.setReceipt(receipt);
+      receiptPage.setBillItems(billPartitions.size() >= index + 1 ? billPartitions.get(index) : new ArrayList<>());
+      receiptPage.setPayItems(payPartitions.size() >= index + 1 ? payPartitions.get(index) : new ArrayList<>());
+      receiptPage.setIsLast(true);
+      if (index < billPartitions.size() - 1) {
+        AtomicReference<BigDecimal> pageBillsSubTotal = new AtomicReference<>();
+        if (index == 0) {
+          pageBillsSubTotal.set(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
+        } else {
+          pageBillsSubTotal.set(receiptPages.get(index - 1).getPageBillsSubTotal());
+        }
+        billPartitions.get(index).forEach(receiptBillItem -> {
+          pageBillsSubTotal.set(pageBillsSubTotal.get().add(receiptBillItem.getImputed()).setScale(
+              2, RoundingMode.HALF_UP));
+        });
+        receiptPage.setPageBillsSubTotal(pageBillsSubTotal.get());
+        receiptPage.setIsLast(false);
+      }
+      if (index < payPartitions.size() - 1) {
+        AtomicReference<BigDecimal> pagePaysSubTotal = new AtomicReference<>();
+        if (index == 0) {
+          pagePaysSubTotal.set(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
+        } else {
+          pagePaysSubTotal.set(receiptPages.get(index - 1).getPagePaysSubTotal());
+        }
+        payPartitions.get(index).forEach(receiptPayItem -> {
+          pagePaysSubTotal.set(pagePaysSubTotal.get().add(receiptPayItem.getAmount()).setScale(
+              2, RoundingMode.HALF_UP));
+        });
+        receiptPage.setPagePaysSubTotal(pagePaysSubTotal.get());
+        receiptPage.setIsLast(false);
+      }
+      if (index > 0) {
+        receiptPage.setPreviousPageBillsSubTotal(receiptPages.get(index - 1).getPageBillsSubTotal());
+        receiptPage.setPreviousPagePaysSubTotal(receiptPages.get(index - 1).getPagePaysSubTotal());
+      }
+      receiptPages.add(receiptPage);
+    });
+    return receiptPages;
+  }
 
 }
