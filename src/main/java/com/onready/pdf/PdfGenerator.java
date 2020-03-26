@@ -81,9 +81,17 @@ public class PdfGenerator {
 
   public byte[] getReceiptPdf(List<ReceiptPage> receiptPages) {
     try {
-      String templatePath = new StringBuilder("comprobantes/")
-          .append("template-RC")
-          .append(XSL_EXTENSION).toString();
+      String company = receiptPages.get(0).getReceipt().getCompany();
+      String templatePath;
+      if (company.equals("BBA")) {
+        templatePath = new StringBuilder("comprobantes/")
+            .append("template-RC-BBA")
+            .append(XSL_EXTENSION).toString();
+      } else {
+        templatePath = new StringBuilder("comprobantes/")
+            .append("template-RC")
+            .append(XSL_EXTENSION).toString();
+      }
       return pdfCreationUtil.generateFile(this.getClass()
           .getClassLoader()
           .getResourceAsStream(templatePath), receiptPages);
