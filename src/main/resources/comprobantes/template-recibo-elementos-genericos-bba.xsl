@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:border-top="http://www.w3.org/1999/xhtml"
+                xmlns:fo="http://www.w3.org/1999/XSL/Format"
+                xmlns:fox="http://xmlgraphics.apache.org/fop/extensions"
+                xmlns:border-top="http://www.w3.org/1999/xhtml"
                 exclude-result-prefixes="fo">
 
     <xsl:decimal-format name="decimalFormat" decimal-separator="," grouping-separator="."/>
     <xsl:variable name="smallcase" select="'abcdefghijklmnñopqrstuvwxyz'"/>
     <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'"/>
+    <fox:destination internal-destination="round-borders"/>
 
     <xsl:template name="reciboBba">
         <xsl:param name="copy"/>
@@ -20,26 +23,47 @@
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            <xsl:call-template name="datosCliente">
+                                <xsl:with-param name="copy" select='$copy'/>
+                            </xsl:call-template>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
             </fo:table-body>
         </fo:table>
     </xsl:template>
 
     <xsl:template name="cabecera">
         <xsl:param name="copy"/>
-        <fo:table table-layout="fixed" width="100%" border="solid 0.3mm black">
+        <fo:table table-layout="fixed" border="solid 0.3mm black">
             <fo:table-body>
                 <fo:table-row>
                     <fo:table-cell>
                         <fo:block>
-                            <xsl:call-template name="cabeceraIzq"/>
-                        </fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                        <fo:block>
-                            <xsl:call-template name="cabeceraDer"/>
+                            <xsl:call-template name="cabeceraSup"/>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            <xsl:call-template name="cabeceraInf"/>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </xsl:template>
+
+    <xsl:template name="datosCliente">
+        <xsl:param name="copy"/>
+        <fo:table table-layout="fixed" border="solid 0.3mm black" >
+            <fo:table-column column-width="50%"/>
+            <fo:table-column column-width="50%"/>
+            <fo:table-body>
                 <fo:table-row>
                     <fo:table-cell>
                         <fo:block>
@@ -56,40 +80,27 @@
         </fo:table>
     </xsl:template>
 
-    <xsl:template name="cabeceraIzq">
-        <fo:table table-layout="fixed" border-left="solid 0.15mm black">
+    <xsl:template name="cabeceraSup">
+        <fo:table table-layout="fixed" border-collapse="separate" id="round-borders">
+            <fo:table-column column-width="47%"/>
+            <fo:table-column column-width="6%"/>
+            <fo:table-column column-width="47%"/>
             <fo:table-body>
                 <fo:table-row>
-                    <fo:table-cell padding="10px">
-                        <fo:block></fo:block>
-                    </fo:table-cell>
-                </fo:table-row>
-                <fo:table-row>
-                    <fo:table-cell text-align="right" display-align="before" padding="5px 10px 5px 5px">
-                        <fo:block font-weight="bold" font-size="9pt">
-                            BBA AUTOPARTES S.A.
-                        </fo:block>
-                        <fo:block font-size="7pt">
-                            Av. Roberto Hooke 3754 | 1667 | Tortuguitas | N
-                        </fo:block>
-                        <fo:block font-size="7pt">
-                            Tel. +54 11 4554 0267 | Fax: +54 11 4554 0267 | eMail bba@bbaautopartes.com
-                        </fo:block>
-                        <fo:block font-size="7pt">
-                            Responsable Inscripto |
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
                         </fo:block>
                     </fo:table-cell>
-                </fo:table-row>
-            </fo:table-body>
-        </fo:table>
-    </xsl:template>
-
-    <xsl:template name="cabeceraDer">
-        <fo:table table-layout="fixed" border-left="solid 0.15mm black">
-            <fo:table-body>
-                <fo:table-row>
-                    <fo:table-cell text-align="center" font-size="8pt" padding="4px 0px 4px 4px"
-                                   border-left="solid 0.15mm black">
+                    <fo:table-cell border="solid 0.3mm black" fox:border-radius="0.25em"
+                                   text-align="center" display-align="center" font-size="24pt" font-weight="bold">
+                        <fo:block-container>
+                            <fo:block>
+                                X
+                            </fo:block>
+                        </fo:block-container>
+                    </fo:table-cell>
+                    <fo:table-cell text-align="center" font-size="8pt" padding="4px 0px 4px 4px">
                         <fo:block font-weight="bold">
                             Recibo de cobranzas
                         </fo:block>
@@ -103,8 +114,32 @@
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </xsl:template>
+
+    <xsl:template name="cabeceraInf">
+        <fo:table table-layout="fixed">
+            <fo:table-column column-width="50%"/>
+            <fo:table-column column-width="50%"/>
+            <fo:table-body>
                 <fo:table-row>
-                    <fo:table-cell text-align="left" font-size="7pt" padding="0px 0px 12px 5px"
+                    <fo:table-cell text-align="right" display-align="before" padding="14px 10px 5px 5px"
+                                   border-right="solid 0.15mm black">
+                        <fo:block font-weight="bold" font-size="9pt">
+                            BBA AUTOPARTES S.A.
+                        </fo:block>
+                        <fo:block font-size="7pt">
+                            Av. Roberto Hooke 3754 | 1667 | Tortuguitas | N
+                        </fo:block>
+                        <fo:block font-size="7pt">
+                            Tel. +54 11 4554 0267 | Fax: +54 11 4554 0267 | eMail bba@bbaautopartes.com
+                        </fo:block>
+                        <fo:block font-size="7pt">
+                            Responsable Inscripto |
+                        </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell text-align="left" font-size="7pt" padding="14px 0px 12px 10px"
                                    border-left="solid 0.15mm black">
                         <fo:block>
                             C.U.I.T.: 30-71128531-4
@@ -122,7 +157,7 @@
     </xsl:template>
 
     <xsl:template name="datosClienteIzq">
-        <fo:table table-layout="fixed" border-top="solid 0.3mm black">
+        <fo:table table-layout="fixed">
             <fo:table-column column-width="16%"/>
             <fo:table-column column-width="84%"/>
             <fo:table-body font-size="8pt">
@@ -167,14 +202,15 @@
     </xsl:template>
 
     <xsl:template name="datosClienteDer">
-        <fo:table table-layout="fixed" border-top="solid 0.3mm black">
+        <fo:table table-layout="fixed">
             <fo:table-column column-width="25%"/>
             <fo:table-column column-width="75%"/>
-            <fo:table-body font-size="8pt" >
+            <fo:table-body font-size="8pt">
                 <fo:table-row>
                     <fo:table-cell padding="2px 0px 2px 10px" font-weight="bold">
                         <fo:block>
-                            (        <xsl:value-of select="receipt/customerId"/>        )
+                            (
+                            <xsl:value-of select="receipt/customerId"/> )
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell padding="2px 0px 0px 0px" font-weight="bold">
@@ -187,7 +223,7 @@
                 <fo:table-row>
                     <fo:table-cell padding="0px 0px 2px 10px" font-weight="bold">
                         <fo:block>
-                            (        FALTA CAMPO        )
+                            ( FALTA CAMPO )
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell font-weight="bold">
@@ -213,20 +249,6 @@
     </xsl:template>
 
     <xsl:template name="cuerpoRecibo">
-    </xsl:template>
-
-    <xsl:template name="cuerpoReciboIzquierda">
-        <fo:table table-layout="fixed" width="100%" border="solid 0.3mm black" font-size="8pt">
-
-        </fo:table>
-        <fo:table table-layout="fixed" width="100%" border-left="solid 0.3mm black" border-right="solid 0.3mm black"
-                  border-bottom="solid 0.3mm black" font-size="8pt">
-        </fo:table>
-    </xsl:template>
-
-    <xsl:template name="cuerpoReciboDerecha">
-        <fo:table table-layout="fixed" width="94%" border="solid 0.3mm black" font-size="8pt">
-        </fo:table>
     </xsl:template>
 
     <xsl:template name="seccionTotales">
