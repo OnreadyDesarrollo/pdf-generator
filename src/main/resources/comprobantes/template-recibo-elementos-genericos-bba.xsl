@@ -35,7 +35,25 @@
                 <fo:table-row>
                     <fo:table-cell>
                         <fo:block>
-                            <xsl:call-template name="seccionFacturas">
+                            <xsl:call-template name="facturas">
+                                <xsl:with-param name="copy" select='$copy'/>
+                            </xsl:call-template>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            <xsl:call-template name="pagos">
+                                <xsl:with-param name="copy" select='$copy'/>
+                            </xsl:call-template>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            <xsl:call-template name="footer">
                                 <xsl:with-param name="copy" select='$copy'/>
                             </xsl:call-template>
                         </fo:block>
@@ -107,6 +125,88 @@
                     <fo:table-cell>
                         <fo:block>
                             &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </xsl:template>
+
+    <xsl:template name="facturas">
+        <xsl:param name="copy"/>
+        <fo:table table-layout="fixed" border-right="solid 0.3mm black"
+                  border-left="solid 0.3mm black">
+            <fo:table-body>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            <xsl:call-template name="seccionFacturas">
+                                <xsl:with-param name="copy" select='$copy'/>
+                            </xsl:call-template>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            <xsl:call-template name="totalFacturas">
+                                <xsl:with-param name="copy" select='$copy'/>
+                            </xsl:call-template>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </xsl:template>
+
+    <xsl:template name="pagos">
+        <xsl:param name="copy"/>
+        <fo:table table-layout="fixed" border-right="solid 0.3mm black"
+                  border-left="solid 0.3mm black">
+            <fo:table-body>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            <xsl:call-template name="seccionPagos">
+                                <xsl:with-param name="copy" select='$copy'/>
+                            </xsl:call-template>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            <xsl:call-template name="totalPagos">
+                                <xsl:with-param name="copy" select='$copy'/>
+                            </xsl:call-template>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
@@ -286,11 +386,10 @@
         </fo:table>
     </xsl:template>
 
-    <fox:destination internal-destination="grey-row"/>
+    <fox:destination internal-destination="bills-header"/>
     <xsl:template name="seccionFacturas">
         <xsl:param name="copy"/>
-        <fo:table id="grey-row" border-collapse="separate"
-                  border-right="solid 0.3mm black" border-left="solid 0.3mm black">
+        <fo:table id="bills-header" border-collapse="separate">
             <fo:table-column column-width="25%"/>
             <fo:table-column column-width="18%"/>
             <fo:table-column column-width="12%"/>
@@ -298,7 +397,7 @@
             <fo:table-column column-width="15%"/>
             <fo:table-column column-width="15%"/>
             <fo:table-body font-size="9pt" text-align="center">
-                <fo:table-row padding="6px 0px 8px 0px" background-color="#e0e0e0"
+                <fo:table-row padding="10px 0px 12px 0px" background-color="#e0e0e0"
                               font-weight="bold"
                               border="solid 0.15pt #e0e0e0">
                     <fo:table-cell fox:border-radius="2em">
@@ -322,7 +421,7 @@
                 </fo:table-row>
             </fo:table-body>
         </fo:table>
-        <fo:table border-right="solid 0.3mm black" border-left="solid 0.3mm black">
+        <fo:table>
             <fo:table-column column-width="11%"/>
             <fo:table-column column-width="11%"/>
             <fo:table-column column-width="3%"/>
@@ -353,7 +452,7 @@
                                         <!-- FALTA CAMPO -->
                                     </fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell>
+                                <fo:table-cell text-align="right">
                                     <fo:block>
                                         <xsl:value-of select="imputed"/>
                                     </fo:block>
@@ -397,19 +496,213 @@
         </fo:table>
     </xsl:template>
 
-    <xsl:template name="seccionTotales">
+    <xsl:template name="totalFacturas">
+        <xsl:param name="copy"/>
+        <fo:table margin="2px 4px 2px 2px">
+            <fo:table-column column-width="80%"/>
+            <fo:table-column column-width="10%"/>
+            <fo:table-column column-width="10%"/>
+            <fo:table-body font-size="9pt">
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell background-color="#000000"
+                                   color="#FFFFFF"
+                                   font-weight="bold" text-align="left">
+                        <fo:block>
+                            Total:
+                        </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell background-color="#000000"
+                                   color="#FFFFFF"
+                                   font-weight="bold" text-align="right">
+                        <fo:block>
+                            TOTAL
+                            <!-- FALTA CAMPO -->
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
     </xsl:template>
 
-    <xsl:template name="seccionNumeroPagina">
-        <fo:table table-layout="fixed" bottom="0" width="95%" border="none" font-size="9pt" font-style="italic"
-                  text-align="right">
-            <fo:table-column column-width="100%"/>
-            <fo:table-body>
+    <fox:destination internal-destination="payments-header"/>
+    <xsl:template name="seccionPagos">
+        <xsl:param name="copy"/>
+        <fo:table id="payments-header" border-collapse="separate">
+            <fo:table-column column-width="14%"/>
+            <fo:table-column column-width="9%"/>
+            <fo:table-column column-width="9%"/>
+            <fo:table-column column-width="18%"/>
+            <fo:table-column column-width="8%"/>
+            <fo:table-column column-width="8%"/>
+            <fo:table-column column-width="17%"/>
+            <fo:table-column column-width="17%"/>
+            <fo:table-body font-size="9pt" text-align="center">
+                <fo:table-row padding="6px 0px 8px 0px" background-color="#e0e0e0"
+                              font-weight="bold"
+                              border="solid 0.15pt #e0e0e0">
+                    <fo:table-cell fox:border-radius="2em">
+                        <fo:block>Medio de pago</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                        <fo:block>N° Interno</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                        <fo:block>Cheque/Doc</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell text-align="left">
+                        <fo:block>Banco</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                        <fo:block>Clearing</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                        <fo:block>Categoría</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                        <fo:block>Vencimiento</fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell fox:border-radius="2em">
+                        <fo:block>Importe</fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+        <fo:table>
+            <fo:table-column column-width="14%"/>
+            <fo:table-column column-width="9%"/>
+            <fo:table-column column-width="9%"/>
+            <fo:table-column column-width="18%"/>
+            <fo:table-column column-width="8%"/>
+            <fo:table-column column-width="8%"/>
+            <fo:table-column column-width="17%"/>
+            <fo:table-column column-width="17%"/>
+            <fo:table-body font-size="9pt" text-align="left">
+                <xsl:choose>
+                    <xsl:when test="payItems">
+                        <xsl:for-each select="payItems/payItems">
+                            <fo:table-row>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        <xsl:value-of select="type"/>
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        0
+                                        <!-- FALTA CAMPO -->
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        <xsl:value-of select="counterfoil"/>
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        <xsl:value-of select="bank"/>
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        <!-- FALTA CAMPO -->
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        0
+                                        <!-- FALTA CAMPO -->
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell>
+                                    <fo:block>
+                                        <xsl:value-of select="date"/>
+                                    </fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell text-align="right">
+                                    <fo:block>
+                                        <xsl:value-of select="amount"/>
+                                    </fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <fo:table-row>
+                            <fo:table-cell>
+                                <fo:block>
+                                    &#160;
+                                </fo:block>
+                            </fo:table-cell>
+                        </fo:table-row>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </fo:table-body>
+        </fo:table>
+    </xsl:template>
+
+    <xsl:template name="totalPagos">
+        <xsl:param name="copy"/>
+        <fo:table margin="2px 4px 2px 2px">
+            <fo:table-column column-width="80%"/>
+            <fo:table-column column-width="10%"/>
+            <fo:table-column column-width="10%"/>
+            <fo:table-body font-size="9pt">
                 <fo:table-row>
-                    <fo:table-cell padding="8px 0px 8px 0px">
-                        <fo:block>Página
-                            <xsl:value-of select="position()"/> de
-                            <xsl:value-of select="last()"/>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell background-color="#000000"
+                                   color="#FFFFFF"
+                                   font-weight="bold" text-align="left">
+                        <fo:block>
+                            Total:
+                        </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell background-color="#000000"
+                                   color="#FFFFFF"
+                                   font-weight="bold" text-align="right">
+                        <fo:block>
+                            TOTAL
+                            <!-- FALTA CAMPO -->
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </xsl:template>
+
+    <xsl:template name="footer">
+        <xsl:param name="copy"/>
+        <fo:table table-layout="fixed" border="solid 0.3mm black">
+            <fo:table-body font-size="9pt">
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            RECIBIMOS la suma expresada en pesos de
+                            NULL
+                            <!-- FALTA CAMPO -->
+                            en concepto de cancelación de los comprobantes indicados.
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
