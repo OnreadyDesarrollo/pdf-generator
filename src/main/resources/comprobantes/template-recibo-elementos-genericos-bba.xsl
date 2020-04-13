@@ -432,7 +432,7 @@
                                     </fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell>
-                                    <fo:block color="#3002ff" text-align="right">
+                                    <fo:block text-align="right">
                                         <xsl:value-of select="billNumber"/>
                                     </fo:block>
                                 </fo:table-cell>
