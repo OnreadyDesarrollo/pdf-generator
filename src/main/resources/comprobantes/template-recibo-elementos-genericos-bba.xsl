@@ -149,14 +149,9 @@
                 <fo:table-row>
                     <fo:table-cell>
                         <fo:block>
-                            &#160;
-                        </fo:block>
-                    </fo:table-cell>
-                </fo:table-row>
-                <fo:table-row>
-                    <fo:table-cell>
-                        <fo:block>
-                            &#160;
+                            <xsl:call-template name="espacioDiez">
+                                <xsl:with-param name="copy" select='$copy'/>
+                            </xsl:call-template>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
@@ -190,14 +185,9 @@
                 <fo:table-row>
                     <fo:table-cell>
                         <fo:block>
-                            &#160;
-                        </fo:block>
-                    </fo:table-cell>
-                </fo:table-row>
-                <fo:table-row>
-                    <fo:table-cell>
-                        <fo:block>
-                            &#160;
+                            <xsl:call-template name="espacioDiez">
+                                <xsl:with-param name="copy" select='$copy'/>
+                            </xsl:call-template>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
@@ -533,19 +523,19 @@
     <xsl:template name="seccionPagos">
         <xsl:param name="copy"/>
         <fo:table id="payments-header" border-collapse="separate">
-            <fo:table-column column-width="14%"/>
+            <fo:table-column column-width="12%"/>
             <fo:table-column column-width="9%"/>
-            <fo:table-column column-width="9%"/>
+            <fo:table-column column-width="11%"/>
             <fo:table-column column-width="18%"/>
             <fo:table-column column-width="8%"/>
             <fo:table-column column-width="8%"/>
             <fo:table-column column-width="17%"/>
             <fo:table-column column-width="17%"/>
             <fo:table-body font-size="9pt" text-align="center">
-                <fo:table-row padding="6px 0px 8px 0px" background-color="#e0e0e0"
+                <fo:table-row padding="6px 0px 8px 4px" background-color="#e0e0e0"
                               font-weight="bold"
                               border="solid 0.15pt #e0e0e0">
-                    <fo:table-cell fox:border-radius="2em">
+                    <fo:table-cell fox:border-radius="2em" text-align="left">
                         <fo:block>Medio de pago</fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
@@ -591,13 +581,13 @@
                                         <xsl:value-of select="type"/>
                                     </fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell>
+                                <fo:table-cell text-align="left">
                                     <fo:block>
                                         0
                                         <!-- FALTA CAMPO -->
                                     </fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell>
+                                <fo:table-cell text-align="left">
                                     <fo:block>
                                         <xsl:value-of select="counterfoil"/>
                                     </fo:block>
@@ -683,12 +673,50 @@
         <fo:table table-layout="fixed" border="solid 0.3mm black">
             <fo:table-body font-size="9pt">
                 <fo:table-row>
-                    <fo:table-cell>
+                    <fo:table-cell padding="4px 0px 0px 4px">
                         <fo:block>
                             RECIBIMOS la suma expresada en pesos de
                             NULL
                             <!-- FALTA CAMPO -->
                             en concepto de cancelación de los comprobantes indicados.
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            <xsl:call-template name="espacioCinco">
+                                <xsl:with-param name="copy" select='$copy'/>
+                            </xsl:call-template>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </xsl:template>
+
+    <xsl:template name="espacioCinco">
+        <xsl:param name="copy"/>
+        <fo:table>
+            <fo:table-body>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
@@ -710,5 +738,82 @@
         </fo:table>
     </xsl:template>
 
+    <xsl:template name="espacioDiez">
+        <xsl:param name="copy"/>
+        <fo:table>
+            <fo:table-body>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block>
+                            &#160;
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </xsl:template>
 
 </xsl:stylesheet>
