@@ -251,7 +251,7 @@
                     </xsl:choose>
 
                     <xsl:choose>
-                        <xsl:when test="voucher/vobservations != ''">
+                        <xsl:when test="voucher/observations != ''">
                             <fo:table-row font-size="8pt">
                                 <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
                                     <fo:block></fo:block>
