@@ -41,7 +41,7 @@
     <xsl:template name="logo">
         <fo:block text-align="center">
             <fo:external-graphic src="url('https://sla-comprobantes.s3-us-west-2.amazonaws.com/logos/logo-avellaneda.jpg')"
-                                 content-height="20mm"
+                                 content-height="25mm"
                                  scaling="uniform"/>
         </fo:block>
     </xsl:template>
@@ -64,10 +64,10 @@
     </xsl:template>
 
     <xsl:template name="aclaracionesAlPie">
-        <fo:block font-size="6pt" margin-top="5px">
+        <fo:block font-size="7pt" margin-top="5px">
             LAS FACTURAS DEBEN SER ABONADAS EN BBA AUTOPARTES S.A. - AV. ROBERTO HOOKE 3754 - (CP 1667) TORTUGUITAS ARGENTINA - CHEQUES A LA ORDEN DE BBA AUTOPARTES S.A
         </fo:block>
-        <fo:block font-size="6pt" margin-bottom="5px">
+        <fo:block font-size="7pt" margin-bottom="5px">
             LA MERCADERIA VIAJA POR CUENTA Y RIESGO DEL COMPRADOR. NO SE ACEPTAN RECLAMOS DESPUES DE LAS 48HS. DE
             RECIBIDA LA MERCADERIA.
         </fo:block>
