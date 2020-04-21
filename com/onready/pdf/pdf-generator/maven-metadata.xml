@@ -3,10 +3,10 @@
   <groupId>com.onready.pdf</groupId>
   <artifactId>pdf-generator</artifactId>
   <versioning>
-    <release>1.3.2</release>
+    <release>1.3.3</release>
     <versions>
-      <version>1.3.2</version>
+      <version>1.3.3</version>
     </versions>
-    <lastUpdated>20200416180943</lastUpdated>
+    <lastUpdated>20200421151234</lastUpdated>
   </versioning>
 </metadata>
