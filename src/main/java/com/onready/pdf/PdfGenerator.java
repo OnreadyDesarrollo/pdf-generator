@@ -9,9 +9,9 @@ import org.apache.commons.collections4.ListUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.IntStream;
 
@@ -24,6 +24,8 @@ public class PdfGenerator {
   private static final String CROMOSOL_COMPANY = "CRO";
   private static final Long AVELLANEDA_BRANCH = 14L;
   private static final String XSL_EXTENSION = ".xsl";
+  private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+  private static final String AUTOVENTURE_START_DATE = "2020-05-01";
 
   private static final Integer ITEM_PARTITION_VOUCHER_SIZE = 30;
   private static final Integer ITEM_PARTITION_RECEIPT_SIZE = 15;
@@ -31,13 +33,10 @@ public class PdfGenerator {
   public byte[] getPdf(List<VoucherPage> voucherPages) {
     try {
       Voucher voucher = voucherPages.get(0).getVoucher();
-      String voucherCompany = voucher.getCompany();
-      boolean isAve = voucher.getSucursal() == AVELLANEDA_BRANCH
-          && !voucherCompany.equals(CROMOSOL_COMPANY);
       StringBuilder templatePath = new StringBuilder("comprobantes/template-")
           .append(voucher.getVoucherType())
           .append("-")
-          .append((isAve ? "AVE" : voucherCompany))
+          .append(this.getCompanyPath(voucher))
           .append(XSL_EXTENSION);
       log.debug("templatePath: " + templatePath);
       return pdfCreationUtil.generateFile(this.getClass()
@@ -147,6 +146,35 @@ public class PdfGenerator {
       receiptPages.add(receiptPage);
     });
     return receiptPages;
+  }
+
+  private Date getAutoventureStartDate() {
+    try {
+      Date date = FORMAT.parse(AUTOVENTURE_START_DATE);
+      return date;
+    } catch (ParseException e) {
+      throw new IllegalArgumentException("No se pudo parsear la fecha de Autoventure: " + e.getMessage());
+    }
+  }
+
+  private boolean isAve(Voucher voucher) {
+    return voucher.getSucursal() == AVELLANEDA_BRANCH && !voucher.getCompany().equals(CROMOSOL_COMPANY);
+  }
+
+  private boolean isAutoventure(Voucher voucher) {
+    Date voucherDate = voucher.getUntransformedVoucherDate();
+    Date autoventureDate = this.getAutoventureStartDate();
+    return voucher.getCompany().equals("AUT") && voucherDate.after(autoventureDate);
+  }
+
+  private String getCompanyPath(Voucher voucher) {
+    if (this.isAutoventure(voucher)) {
+      return "AUT";
+    } else if (this.isAve(voucher)) {
+      return "AVE";
+    } else {
+      return voucher.getCompany();
+    }
   }
 
 }

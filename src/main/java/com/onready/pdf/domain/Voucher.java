@@ -69,4 +69,8 @@ public class Voucher {
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     return formatter.format(this.voucherDate);
   }
+
+  public Date getUntransformedVoucherDate() {
+    return this.voucherDate;
+  }
 }
