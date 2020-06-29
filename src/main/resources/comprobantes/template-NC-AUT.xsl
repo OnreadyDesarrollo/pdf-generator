@@ -58,7 +58,7 @@
                 AUTOVENTURES S.A. / Camino Gral. Belgrano 2916 / B1825CYD / Villa Dominico / Buenos Aires / Argentina
             </fo:block>
             <fo:block>
-                Tel: 0800-122-6587 / www.tycautopartes.com / info@tycautopartes.com
+                Tel: 0800-122-6587 / www.tycradiadores.com / info@tycradiadores.com
             </fo:block>
         </fo:block>
     </xsl:template>

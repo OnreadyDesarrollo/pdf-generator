@@ -58,7 +58,7 @@
                 BBA AUTOPARTES S.A. / Avenida Roberto Hooke 3754 / CP 1667 / Tortuguitas / Buenos Aires / Argentina
             </fo:block>
             <fo:block>
-                Tel: 0800-122-6587 / www.tycautopartes.com / info@tycautopartes.com
+                Tel: 0800-122-6587 / www.tycradiadores.com / info@tycradiadores.com
             </fo:block>
         </fo:block>
     </xsl:template>
