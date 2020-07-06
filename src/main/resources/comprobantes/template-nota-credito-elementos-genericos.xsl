@@ -250,7 +250,7 @@
                         </xsl:when>
                     </xsl:choose>
                     <xsl:choose>
-                        <xsl:when test="voucher/company = 'BBA'">
+                        <xsl:when test="voucher/company = 'BBA' or voucher/company = 'AUT'">
                             <xsl:call-template name="itemsBBA">
                             </xsl:call-template>
                         </xsl:when>
