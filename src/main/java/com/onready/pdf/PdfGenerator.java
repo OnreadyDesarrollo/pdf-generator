@@ -25,7 +25,7 @@ public class PdfGenerator {
   private static final Long AVELLANEDA_BRANCH = 14L;
   private static final String XSL_EXTENSION = ".xsl";
   private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-  private static final String AUTOVENTURE_START_DATE = "2020-07-01";
+  private static final String AUTOVENTURE_START_DATE = "2020-07-07";
 
   private static final Integer ITEM_PARTITION_VOUCHER_SIZE = 30;
   private static final Integer ITEM_PARTITION_RECEIPT_SIZE = 15;
