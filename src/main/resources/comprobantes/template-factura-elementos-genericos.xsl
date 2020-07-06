@@ -403,7 +403,7 @@
     <xsl:template name="observaciones">
         <fo:block height="1cm" border="solid 0.1mm black" border-top-style="hidden" padding-right="20px">
             <xsl:choose>
-                <xsl:when test="voucher/company = 'BBA'">
+                <xsl:when test="voucher/company = 'BBA' or voucher/company = 'AUT'">
                     <fo:block text-indent="5mm" space-before="1mm" font-size="10pt">
                         <xsl:value-of select="voucher/observations"/>
                     </fo:block>
