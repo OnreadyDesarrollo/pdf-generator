@@ -117,7 +117,10 @@
                                 CHEQUES A LA ORDEN DE AUTOVENTURES S.A.
                             </fo:block>
                             <fo:block>
-                                35 DIAS FECHA FACTURA = NETO
+                                35 DÍAS FECHA FACTURA = 4%
+                            </fo:block>
+                            <fo:block>
+                                36 DÍAS FECHA FACTURA = NETO
                             </fo:block>
                         </fo:block-container>
                     </fo:table-cell>
