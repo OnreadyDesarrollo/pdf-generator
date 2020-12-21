@@ -55,7 +55,8 @@
                 </xsl:call-template>
             </fo:block>
             <fo:block>
-                CROMOSOL S.A.I.C.F. e I. | Av. del Campo 1500 | C1427APO | Ciudad de Buenos Aires | Argentina
+                CROMOSOL S.A.I.C.F. e I. |
+                <xsl:value-of select="voucher/companyAddress"/>
             </fo:block>
             <fo:block>
                 Tel: (11) 4107.0000 | Fax: (11) 4107.0099 | Ventas y Consultas: 0810-122-0787

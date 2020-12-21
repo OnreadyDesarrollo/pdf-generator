@@ -1,6 +1,7 @@
 package com.onready.pdf;
 
 import com.onready.pdf.domain.*;
+import com.onready.pdf.enums.StorePickUpEnum;
 import com.onready.pdf.exception.PDFCreationException;
 import com.onready.pdf.utils.PdfCreationUtil;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class PdfGenerator {
   public byte[] getPdf(List<VoucherPage> voucherPages) {
     try {
       Voucher voucher = voucherPages.get(0).getVoucher();
+      this.generateCompanyAddress(voucherPages);
       StringBuilder templatePath = new StringBuilder("comprobantes/template-")
           .append(voucher.getVoucherType())
           .append("-")
@@ -175,6 +177,12 @@ public class PdfGenerator {
     } else {
       return voucher.getCompany();
     }
+  }
+
+  private void generateCompanyAddress(List<VoucherPage> voucherPages){
+    voucherPages.forEach(voucherPage ->
+        voucherPage.getVoucher().setCompanyAddress(StorePickUpEnum
+            .getAbbreviationByCode(voucherPage.getVoucher().getSucursal())));
   }
 
 }

@@ -52,6 +52,7 @@ public class Voucher {
   private String sellerCode;
 
   private String caieExpirationDate;
+  private String companyAddress;
 
   private List<ItemVoucher> items;
 
