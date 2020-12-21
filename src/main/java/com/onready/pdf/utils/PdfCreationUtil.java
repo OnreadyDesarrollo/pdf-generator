@@ -4,7 +4,6 @@ import com.onready.pdf.exception.PDFCreationException;
 import org.apache.avalon.framework.configuration.Configuration;
 import org.apache.avalon.framework.configuration.ConfigurationException;
 import org.apache.avalon.framework.configuration.DefaultConfigurationBuilder;
-import org.apache.commons.io.IOUtils;
 import org.apache.fop.apps.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
