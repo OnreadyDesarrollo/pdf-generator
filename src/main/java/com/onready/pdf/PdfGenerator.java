@@ -1,7 +1,11 @@
 package com.onready.pdf;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onready.pdf.domain.*;
+import com.onready.pdf.enums.CuitEnum;
 import com.onready.pdf.enums.StorePickUpEnum;
+import com.onready.pdf.enums.VoucherTypeCodeEnum;
 import com.onready.pdf.exception.PDFCreationException;
 import com.onready.pdf.utils.PdfCreationUtil;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,7 @@ import java.util.stream.IntStream;
 public class PdfGenerator {
 
   private final PdfCreationUtil pdfCreationUtil = new PdfCreationUtil();
+  private final ObjectMapper objectMapper;
 
   private static final String CROMOSOL_COMPANY = "CRO";
   private static final Long AVELLANEDA_BRANCH = 14L;
@@ -96,7 +101,7 @@ public class PdfGenerator {
   }
 
   public static List<ReceiptPage> paginateReceipt(Receipt receipt) {
-    List<ReceiptPage> receiptPages = new LinkedList();
+    List<ReceiptPage> receiptPages = new LinkedList<>();
     int longPartitions;
     List<List<ReceiptBillItem>> billPartitions = ListUtils.partition(
         receipt.getReceiptVoucherBillItems(), ITEM_PARTITION_RECEIPT_SIZE);
@@ -152,8 +157,7 @@ public class PdfGenerator {
 
   private Date getAutoventureStartDate() {
     try {
-      Date date = FORMAT.parse(AUTOVENTURE_START_DATE);
-      return date;
+      return FORMAT.parse(AUTOVENTURE_START_DATE);
     } catch (ParseException e) {
       throw new IllegalArgumentException("No se pudo parsear la fecha de Autoventure: " + e.getMessage());
     }
@@ -179,10 +183,38 @@ public class PdfGenerator {
     }
   }
 
-  private void generateCompanyAddress(List<VoucherPage> voucherPages){
+  private void generateCompanyAddress(List<VoucherPage> voucherPages) {
     voucherPages.forEach(voucherPage ->
         voucherPage.getVoucher().setCompanyAddress(StorePickUpEnum
             .getAbbreviationByCode(voucherPage.getVoucher().getSucursal())));
   }
 
+  private void generateJson(Voucher voucher) {
+    QRJson qrJson = new QRJson();
+    qrJson.setFecha(voucher.getVoucherDateForQr());
+    qrJson.setCuit(Long.valueOf(CuitEnum.getCuitByAbbreviation(voucher.getCompany())));
+    qrJson.setPtoVta(voucher.getSucursal());
+    qrJson.setTipoCmp(VoucherTypeCodeEnum.getCodeByVoucherType(voucher));
+    qrJson.setNroCmp(voucher.getVoucherNumber());
+    qrJson.setImporte(voucher.getVoucherTotal());
+    qrJson.setNroDocRec(Long.valueOf(voucher.getCuit().replace("-", "")));
+    qrJson.setTipoCodAut(this.generateAuthorizationTypeCode(voucher));
+    qrJson.setCodAut(Long.valueOf(voucher.getCaie()));
+    try {
+      String jsonText = objectMapper.writeValueAsString(qrJson);
+      voucher.setQr(Base64.getEncoder().encodeToString(jsonText.getBytes()));
+    } catch (JsonProcessingException e) {
+      log.debug("Hubo un error al generar el JSON");
+    }
+  }
+
+  private String generateAuthorizationTypeCode(Voucher voucher) {
+    if (voucher.getCompany().equals("BBA") ||
+        voucher.getCompany().equals("AUT") ||
+        (voucher.getCompany().equals("CRO") && voucher.getVoucherLetter().equals("E"))) {
+      return "E";
+    } else {
+      return "A";
+    }
+  }
 }

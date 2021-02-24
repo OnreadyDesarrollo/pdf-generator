@@ -53,6 +53,7 @@ public class Voucher {
 
   private String caieExpirationDate;
   private String companyAddress;
+  private String qr;
 
   private List<ItemVoucher> items;
 
@@ -68,6 +69,11 @@ public class Voucher {
 
   public String getVoucherDate() {
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    return formatter.format(this.voucherDate);
+  }
+
+  public String getVoucherDateForQr() {
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     return formatter.format(this.voucherDate);
   }
 
