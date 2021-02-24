@@ -25,7 +25,7 @@ import java.util.stream.IntStream;
 public class PdfGenerator {
 
   private final PdfCreationUtil pdfCreationUtil = new PdfCreationUtil();
-  private final ObjectMapper objectMapper;
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
   private static final String CROMOSOL_COMPANY = "CRO";
   private static final Long AVELLANEDA_BRANCH = 14L;
