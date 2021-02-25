@@ -191,7 +191,7 @@
     </xsl:template>
 
     <xsl:template name="cuerpoFactura">
-        <fo:block-container height="14cm" border="solid 0.1mm black" border-bottom-style="hidden">
+        <fo:block-container height="13cm" border="solid 0.1mm black" border-bottom-style="hidden">
             <fo:table table-layout="fixed" width="100%">
                 <fo:table-column column-width="6%"/>
                 <fo:table-column column-width="10%"/>
@@ -535,49 +535,63 @@
     </xsl:template>
 
     <xsl:template name="pie">
-        <fo:inline-container inline-progression-dimension="18%">
-            <fo:block text-align="center">
-                <xsl:element name="fo:external-graphic">
-                    <xsl:attribute name="src">
-                        <xsl:value-of select="voucher/qr"/>
-                    </xsl:attribute>
-                </xsl:element>
-            </fo:block>
-        </fo:inline-container>
-        <fo:inline-container inline-progression-dimension="32%">
-            <fo:block text-align="left">
-                <fo:external-graphic src="url('https://sla-comprobantes.s3-us-west-2.amazonaws.com/logos/afip.jpg')"
-                                     content-width="27mm"/>
-            </fo:block>
-            <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="9pt">
-                Comprobante autorizado
-            </fo:block>
-            <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="6pt">
-                Esta administración federal no se responsabiliza por los datos ingresados en el detalle de la operaeción
-            </fo:block>
-        </fo:inline-container>
-        <fo:inline-container inline-progression-dimension="50%">
-            <xsl:choose>
-                <xsl:when test="not(voucher/caieExpirationDate = '')
+        <fo:table table-layout="fixed" width="100%">
+            <fo:table-column column-width="18%"/>
+            <fo:table-column column-width="32%"/>
+            <fo:table-column column-width="50%"/>
+            <fo:table-body>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block text-align="center">
+                            <xsl:element name="fo:external-graphic">
+                                <xsl:attribute name="src">
+                                    <xsl:value-of select="voucher/qr"/>
+                                </xsl:attribute>
+                            </xsl:element>
+                        </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                        <fo:block>&#160;</fo:block>
+                        <fo:block>&#160;</fo:block>
+                        <fo:block text-align="left">
+                            <fo:external-graphic src="url('https://sla-comprobantes.s3-us-west-2.amazonaws.com/logos/afip.jpg')"
+                                                 content-width="27mm"/>
+                        </fo:block>
+                        <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="9pt">
+                            Comprobante autorizado
+                        </fo:block>
+                        <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="6pt">
+                            Esta administración federal no se responsabiliza por los datos ingresados en el detalle de la operaeción
+                        </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                        <xsl:choose>
+                            <xsl:when test="not(voucher/caieExpirationDate = '')
                 and not(voucher/caie = null)
                 and not(voucher/caie = '')">
-                    <fo:block>
-                        CAE N°:
-                        <xsl:value-of select="voucher/caie"/>
-                        - Vencimiento:
-                        <xsl:value-of select="voucher/caieExpirationDate"/>
-                    </fo:block>
-                </xsl:when>
-                <xsl:otherwise>
-                    <fo:block>&#160;</fo:block>
-                </xsl:otherwise>
-            </xsl:choose>
-            <fo:block margin-top="5px">
-                Página
-                <xsl:value-of select="position()"/> de
-                <xsl:value-of select="last()"/>
-            </fo:block>
-        </fo:inline-container>
+                                <fo:block>&#160;</fo:block>
+                                <fo:block>&#160;</fo:block>
+                                <fo:block>&#160;</fo:block>
+                                <fo:block>
+                                    CAE N°:
+                                    <xsl:value-of select="voucher/caie"/>
+                                    - Vencimiento:
+                                    <xsl:value-of select="voucher/caieExpirationDate"/>
+                                </fo:block>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <fo:block>&#160;</fo:block>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <fo:block margin-top="5px">
+                            Página
+                            <xsl:value-of select="position()"/> de
+                            <xsl:value-of select="last()"/>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
     </xsl:template>
 
 </xsl:stylesheet>
