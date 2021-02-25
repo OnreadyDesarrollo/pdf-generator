@@ -442,7 +442,7 @@
     </xsl:template>
 
     <xsl:template name="observaciones">
-        <fo:block height="1cm" border="solid 0.1mm black" border-top-style="hidden"  padding-right="20px">
+        <fo:block height="1cm" border="solid 0.1mm black" border-top-style="hidden" padding-right="20px">
             <xsl:choose>
                 <xsl:when test="voucher/company = 'BBA' or voucher/company = 'AUT'">
                     <fo:block text-indent="5mm" space-before="1mm" font-size="10pt">
@@ -489,7 +489,8 @@
                         <xsl:choose>
                             <xsl:when test="not(pageSubTotal != '')">
                                 <fo:block>
-                                    <xsl:value-of select="format-number(voucher/subTotal, '###.###.#00,00', 'decimalFormat')"/>
+                                    <xsl:value-of
+                                            select="format-number(voucher/subTotal, '###.###.#00,00', 'decimalFormat')"/>
                                 </fo:block>
                             </xsl:when>
                             <xsl:otherwise>
@@ -501,7 +502,8 @@
                         <xsl:choose>
                             <xsl:when test="not(pageSubTotal != '')">
                                 <fo:block>
-                                    <xsl:value-of select="format-number(voucher/discount, '###.###.#00,00', 'decimalFormat')"/>
+                                    <xsl:value-of
+                                            select="format-number(voucher/discount, '###.###.#00,00', 'decimalFormat')"/>
                                 </fo:block>
                             </xsl:when>
                             <xsl:otherwise>
@@ -598,36 +600,65 @@
     </xsl:template>
 
     <xsl:template name="pie">
-        <fo:inline-container inline-progression-dimension="50%">
-            <fo:block font-family="pf_interleaved_2_of_5regular" font-size="30">
-                <xsl:value-of select="voucher/barCode"/>
-            </fo:block>
-            <fo:block text-align="center">
-                <xsl:value-of select="voucher/electronicBill"/>
-            </fo:block>
-        </fo:inline-container>
-        <fo:inline-container inline-progression-dimension="50%">
-            <xsl:choose>
-                <xsl:when test="not(voucher/expirationDate = '')
-                and not(voucher/caie)
+        <fo:table table-layout="fixed" width="100%">
+            <fo:table-column column-width="18%"/>
+            <fo:table-column column-width="32%"/>
+            <fo:table-column column-width="50%"/>
+            <fo:table-body>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <fo:block text-align="center">
+                            <xsl:element name="fo:external-graphic">
+                                <xsl:attribute name="src">
+                                    <xsl:value-of select="voucher/qr"/>
+                                </xsl:attribute>
+                            </xsl:element>
+                        </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                        <fo:block>&#160;</fo:block>
+                        <fo:block>&#160;</fo:block>
+                        <fo:block text-align="left">
+                            <fo:external-graphic
+                                    src="url('https://sla-comprobantes.s3-us-west-2.amazonaws.com/logos/afip.jpg')"
+                                    content-width="27mm"/>
+                        </fo:block>
+                        <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="9pt">
+                            Comprobante autorizado
+                        </fo:block>
+                        <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="6pt">
+                            Esta administración federal no se responsabiliza por los datos ingresados en el detalle de
+                            la operaeción
+                        </fo:block>
+                    </fo:table-cell>
+                    <fo:table-cell>
+                        <xsl:choose>
+                            <xsl:when test="not(voucher/caieExpirationDate = '')
+                and not(voucher/caie = null)
                 and not(voucher/caie = '')">
-                    <fo:block>
-                        CAE N°:
-                        <xsl:value-of select="voucher/caie"/>
-                        - Vencimiento:
-                        <xsl:value-of select="voucher/caieExpirationDate"/>
-                    </fo:block>
-                </xsl:when>
-                <xsl:otherwise>
-                    <fo:block>&#160;</fo:block>
-                </xsl:otherwise>
-            </xsl:choose>
-            <fo:block margin-top="5px">
-                Página
-                <xsl:value-of select="position()"/> de
-                <xsl:value-of select="last()"/>
-            </fo:block>
-        </fo:inline-container>
+                                <fo:block>&#160;</fo:block>
+                                <fo:block>&#160;</fo:block>
+                                <fo:block>&#160;</fo:block>
+                                <fo:block>
+                                    CAE N°:
+                                    <xsl:value-of select="voucher/caie"/>
+                                    - Vencimiento:
+                                    <xsl:value-of select="voucher/caieExpirationDate"/>
+                                </fo:block>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <fo:block>&#160;</fo:block>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <fo:block margin-top="5px">
+                            Página
+                            <xsl:value-of select="position()"/> de
+                            <xsl:value-of select="last()"/>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
     </xsl:template>
 
 </xsl:stylesheet>

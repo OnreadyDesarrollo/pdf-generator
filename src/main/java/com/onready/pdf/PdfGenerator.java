@@ -46,7 +46,7 @@ public class PdfGenerator {
     try {
       Voucher voucher = voucherPages.get(0).getVoucher();
       this.generateCompanyAddress(voucherPages);
-      this.generateJsonAndQR(voucher);
+      this.generateJsonAndQRForVoucher(voucher);
       StringBuilder templatePath = new StringBuilder("comprobantes/template-")
           .append(voucher.getVoucherType())
           .append("-")
@@ -196,7 +196,7 @@ public class PdfGenerator {
             .getAbbreviationByCode(voucherPage.getVoucher().getSucursal())));
   }
 
-  private void generateJsonAndQR(Voucher voucher) {
+  private void generateJsonAndQRForVoucher(Voucher voucher) {
     QRJson qrJson = new QRJson();
     qrJson.setFecha(voucher.getVoucherDateForQr());
     qrJson.setCuit(Long.valueOf(CuitEnum.getCuitByAbbreviation(voucher.getCompany())));
@@ -212,7 +212,7 @@ public class PdfGenerator {
       byte[] qrSource = this.writeQR(QR_AFIP_URI + Base64.getEncoder().encodeToString(jsonText.getBytes()));
       voucher.setQr("data:image/png;base64," + Base64.getEncoder().encodeToString(qrSource));
     } catch (WriterException | IOException e) {
-      log.debug("Hubo un error al generar el JSON");
+      log.debug("[generateJsonAndQR] Hubo un error al generar el QR");
     }
   }
 

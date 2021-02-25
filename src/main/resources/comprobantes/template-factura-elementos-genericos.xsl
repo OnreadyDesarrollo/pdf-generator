@@ -554,14 +554,16 @@
                         <fo:block>&#160;</fo:block>
                         <fo:block>&#160;</fo:block>
                         <fo:block text-align="left">
-                            <fo:external-graphic src="url('https://sla-comprobantes.s3-us-west-2.amazonaws.com/logos/afip.jpg')"
-                                                 content-width="27mm"/>
+                            <fo:external-graphic
+                                    src="url('https://sla-comprobantes.s3-us-west-2.amazonaws.com/logos/afip.jpg')"
+                                    content-width="27mm"/>
                         </fo:block>
                         <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="9pt">
                             Comprobante autorizado
                         </fo:block>
                         <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="6pt">
-                            Esta administración federal no se responsabiliza por los datos ingresados en el detalle de la operaeción
+                            Esta administración federal no se responsabiliza por los datos ingresados en el detalle de
+                            la operaeción
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
