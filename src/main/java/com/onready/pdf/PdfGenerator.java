@@ -12,6 +12,7 @@ import com.onready.pdf.enums.StorePickUpEnum;
 import com.onready.pdf.enums.VoucherTypeCodeEnum;
 import com.onready.pdf.exception.PDFCreationException;
 import com.onready.pdf.utils.PdfCreationUtil;
+import com.onready.pdf.vo.QRJsonVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.ListUtils;
@@ -197,18 +198,18 @@ public class PdfGenerator {
   }
 
   private void generateJsonAndQRForVoucher(Voucher voucher) {
-    QRJson qrJson = new QRJson();
-    qrJson.setFecha(voucher.getVoucherDateForQr());
-    qrJson.setCuit(Long.valueOf(CuitEnum.getCuitByAbbreviation(voucher.getCompany())));
-    qrJson.setPtoVta(voucher.getSucursal());
-    qrJson.setTipoCmp(VoucherTypeCodeEnum.getCodeByVoucherType(voucher));
-    qrJson.setNroCmp(voucher.getVoucherNumber());
-    qrJson.setImporte(voucher.getVoucherTotal());
-    qrJson.setNroDocRec(Long.valueOf(voucher.getCuit().replace("-", "")));
-    qrJson.setTipoCodAut(this.generateAuthorizationTypeCode(voucher));
-    qrJson.setCodAut(Long.valueOf(voucher.getCaie()));
+    QRJsonVo qrJsonVo = new QRJsonVo();
+    qrJsonVo.setFecha(voucher.getVoucherDateForQr());
+    qrJsonVo.setCuit(Long.valueOf(CuitEnum.getCuitByAbbreviation(voucher.getCompany())));
+    qrJsonVo.setPtoVta(voucher.getSucursal());
+    qrJsonVo.setTipoCmp(VoucherTypeCodeEnum.getCodeByVoucherType(voucher));
+    qrJsonVo.setNroCmp(voucher.getVoucherNumber());
+    qrJsonVo.setImporte(voucher.getVoucherTotal());
+    qrJsonVo.setNroDocRec(Long.valueOf(voucher.getCuit().replace("-", "")));
+    qrJsonVo.setTipoCodAut(this.generateAuthorizationTypeCode(voucher));
+    qrJsonVo.setCodAut(Long.valueOf(voucher.getCaie()));
     try {
-      String jsonText = objectMapper.writeValueAsString(qrJson);
+      String jsonText = objectMapper.writeValueAsString(qrJsonVo);
       byte[] qrSource = this.writeQR(QR_AFIP_URI + Base64.getEncoder().encodeToString(jsonText.getBytes()));
       voucher.setQr("data:image/png;base64," + Base64.getEncoder().encodeToString(qrSource));
     } catch (WriterException | IOException e) {

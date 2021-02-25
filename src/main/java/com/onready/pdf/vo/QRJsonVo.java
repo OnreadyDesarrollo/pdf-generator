@@ -1,11 +1,11 @@
-package com.onready.pdf.domain;
+package com.onready.pdf.vo;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class QRJson {
+public class QRJsonVo {
 
   private int ver = 1;
   private String fecha;

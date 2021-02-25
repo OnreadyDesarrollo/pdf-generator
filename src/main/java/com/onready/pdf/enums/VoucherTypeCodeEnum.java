@@ -12,7 +12,9 @@ public enum VoucherTypeCodeEnum {
   FCB("FC B", 6),
   NDB("ND B", 7),
   NCB("NC B", 8),
-  FCE("FC E", 19);
+  FCE("FC E", 19),
+  NDE("ND E", 20),
+  NCE("NC E", 21);
 
   private final String type;
   private final int code;
