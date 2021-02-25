@@ -535,12 +535,25 @@
     </xsl:template>
 
     <xsl:template name="pie">
-        <fo:inline-container inline-progression-dimension="50%">
-            <fo:block font-family="pf_interleaved_2_of_5regular" font-size="30">
-                <xsl:value-of select="voucher/barCode"/>
-            </fo:block>
+        <fo:inline-container inline-progression-dimension="18%">
             <fo:block text-align="center">
-                <xsl:value-of select="voucher/electronicBill"/>
+                <xsl:element name="fo:external-graphic">
+                    <xsl:attribute name="src">
+                        <xsl:value-of select="voucher/qr"/>
+                    </xsl:attribute>
+                </xsl:element>
+            </fo:block>
+        </fo:inline-container>
+        <fo:inline-container inline-progression-dimension="32%">
+            <fo:block text-align="left">
+                <fo:external-graphic src="url('https://sla-comprobantes.s3-us-west-2.amazonaws.com/logos/afip.jpg')"
+                                     content-width="27mm"/>
+            </fo:block>
+            <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="9pt">
+                Comprobante autorizado
+            </fo:block>
+            <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="6pt">
+                Esta administración federal no se responsabiliza por los datos ingresados en el detalle de la operaeción
             </fo:block>
         </fo:inline-container>
         <fo:inline-container inline-progression-dimension="50%">

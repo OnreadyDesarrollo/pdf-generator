@@ -7,21 +7,25 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public enum CuitEnum {
 
-  CRO("CRO", "30-50072831-7"),
-  BBA("BBA", "30-71128531-4"),
-  AUT("AUT", "30-70976044-7");
+  CRO("CRO", 30500728317L),
+  BBA("BBA", 30711285314L),
+  AUT("AUT", 30709760447L);
 
   private final String abbreviation;
-  private final String cuit;
+  private final Long cuit;
 
   public String getAbbreviation() {
     return abbreviation;
   }
 
-  public static String getCuitByAbbreviation(String abbreviation) {
+  public Long getCuit() {
+    return cuit;
+  }
+
+  public static Long getCuitByAbbreviation(String abbreviation) {
     for (CuitEnum cuitEnum : values()) {
       if (cuitEnum.getAbbreviation().equals(abbreviation)) {
-        return cuitEnum.getAbbreviation();
+        return cuitEnum.getCuit();
       }
     }
     log.debug("La abreviación {} no existe", abbreviation);

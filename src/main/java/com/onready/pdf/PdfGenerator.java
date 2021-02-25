@@ -1,7 +1,11 @@
 package com.onready.pdf;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.onready.pdf.domain.*;
 import com.onready.pdf.enums.CuitEnum;
 import com.onready.pdf.enums.StorePickUpEnum;
@@ -12,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.ListUtils;
 
+import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
@@ -32,6 +37,7 @@ public class PdfGenerator {
   private static final String XSL_EXTENSION = ".xsl";
   private static final SimpleDateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd");
   private static final String AUTOVENTURE_START_DATE = "2020-07-07";
+  private static final String QR_AFIP_URI = "https://www.afip.gob.ar/fe/qr/?p=";
 
   private static final Integer ITEM_PARTITION_VOUCHER_SIZE = 30;
   private static final Integer ITEM_PARTITION_RECEIPT_SIZE = 15;
@@ -40,6 +46,7 @@ public class PdfGenerator {
     try {
       Voucher voucher = voucherPages.get(0).getVoucher();
       this.generateCompanyAddress(voucherPages);
+      this.generateJsonAndQR(voucher);
       StringBuilder templatePath = new StringBuilder("comprobantes/template-")
           .append(voucher.getVoucherType())
           .append("-")
@@ -189,7 +196,7 @@ public class PdfGenerator {
             .getAbbreviationByCode(voucherPage.getVoucher().getSucursal())));
   }
 
-  private void generateJson(Voucher voucher) {
+  private void generateJsonAndQR(Voucher voucher) {
     QRJson qrJson = new QRJson();
     qrJson.setFecha(voucher.getVoucherDateForQr());
     qrJson.setCuit(Long.valueOf(CuitEnum.getCuitByAbbreviation(voucher.getCompany())));
@@ -202,8 +209,9 @@ public class PdfGenerator {
     qrJson.setCodAut(Long.valueOf(voucher.getCaie()));
     try {
       String jsonText = objectMapper.writeValueAsString(qrJson);
-      voucher.setQr(Base64.getEncoder().encodeToString(jsonText.getBytes()));
-    } catch (JsonProcessingException e) {
+      byte[] qrSource = this.writeQR(QR_AFIP_URI + Base64.getEncoder().encodeToString(jsonText.getBytes()));
+      voucher.setQr("data:image/png;base64," + Base64.getEncoder().encodeToString(qrSource));
+    } catch (WriterException | IOException e) {
       log.debug("Hubo un error al generar el JSON");
     }
   }
@@ -216,5 +224,15 @@ public class PdfGenerator {
     } else {
       return "A";
     }
+  }
+
+  private byte[] writeQR(String text) throws IOException, WriterException {
+    int width = 100;
+    int height = 100;
+    String imageFormat = "png";
+    BitMatrix bitMatrix = new QRCodeWriter().encode(text, BarcodeFormat.QR_CODE, width, height);
+    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, byteArrayOutputStream);
+    return byteArrayOutputStream.toByteArray();
   }
 }
