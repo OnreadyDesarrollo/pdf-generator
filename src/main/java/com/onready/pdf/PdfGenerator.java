@@ -221,8 +221,10 @@ public class PdfGenerator {
     if (voucher.getCompany().equals("BBA") ||
         voucher.getCompany().equals("AUT") ||
         (voucher.getCompany().equals("CRO") && voucher.getVoucherLetter().equals("E"))) {
+      voucher.setCaieType("CAE");
       return "E";
     } else {
+      voucher.setCaieType("CAEA");
       return "A";
     }
   }
