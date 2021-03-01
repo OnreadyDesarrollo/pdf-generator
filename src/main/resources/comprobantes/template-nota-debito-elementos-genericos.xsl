@@ -190,7 +190,7 @@
     </xsl:template>
 
     <xsl:template name="cuerpoNotaDebito">
-        <fo:block-container height="14.5cm" border="solid 0.1mm black" border-bottom-style="hidden">
+        <fo:block-container height="13cm" border="solid 0.1mm black" border-bottom-style="hidden">
             <fo:table table-layout="fixed" width="100%">
                 <fo:table-column column-width="6%"/>
                 <fo:table-column column-width="10%"/>
