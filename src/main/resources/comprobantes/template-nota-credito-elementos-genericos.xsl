@@ -580,7 +580,7 @@
                         </fo:block>
                         <fo:block text-align="left" font-weight="bold" font-style="italic" font-size="6pt">
                             Esta administración federal no se responsabiliza por los datos ingresados en el detalle de
-                            la operaeción
+                            la operación
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
