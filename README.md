@@ -4,7 +4,7 @@
 	<dependency>
 		<groupId>com.onready.pdf</groupId>
 		<artifactId>pdf-generator</artifactId>
-		<version>1.0.0</version>
+		<version>1.5.0</version>
 	</dependency>
 
 	<repositories>
