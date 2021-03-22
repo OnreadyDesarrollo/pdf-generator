@@ -6,7 +6,7 @@
     <xsl:include href="template-nota-credito-elementos-genericos.xsl"/>
 
     <xsl:template name="datosClienteDerecha">
-        <fo:block border="solid 0.1mm black" font-size="8pt" text-align="left" padding-left="3px">
+        <fo:block border="solid 0.1mm black" font-size="7pt" text-align="left" padding-left="3px">
             <fo:block padding="6px 0px 6px 0px">
                 CONDICIONES: AL PIE.ENTREGA PAGO MAX 35 DIAS
             </fo:block>

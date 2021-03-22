@@ -150,7 +150,7 @@
     </xsl:template>
 
     <xsl:template name="datosClienteIzquierda">
-        <fo:block border="solid 0.1mm black" margin-right="5px" text-align="left" font-size="8pt">
+        <fo:block border="solid 0.1mm black" margin-right="5px" text-align="left" font-size="7pt">
             <fo:table table-layout="fixed" width="100%" border="none">
                 <fo:table-column column-width="15%"/>
                 <fo:table-column column-width="60%"/>
