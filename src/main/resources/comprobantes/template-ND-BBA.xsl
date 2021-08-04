@@ -55,7 +55,8 @@
                 </xsl:call-template>
             </fo:block>
             <fo:block>
-                BBA AUTOPARTES S.A. / Avenida Roberto Hooke 3754 / 1667 / Tortuguitas / Buenos Aires / Argentina
+                BBA AUTOPARTES S.A. |
+                <xsl:value-of select="voucher/companyAddress"/>
             </fo:block>
             <fo:block>
                 Tel: 0800-1226765 / www.bbaautopartes.com / bba@bbaautopartes.com
