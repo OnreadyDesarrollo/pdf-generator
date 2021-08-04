@@ -7,8 +7,9 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.onready.pdf.domain.*;
+import com.onready.pdf.enums.BbaAddressEnum;
 import com.onready.pdf.enums.CuitEnum;
-import com.onready.pdf.enums.StorePickUpEnum;
+import com.onready.pdf.enums.CromosolAddressEnum;
 import com.onready.pdf.enums.VoucherTypeCodeEnum;
 import com.onready.pdf.exception.PDFCreationException;
 import com.onready.pdf.utils.PdfCreationUtil;
@@ -192,9 +193,15 @@ public class PdfGenerator {
   }
 
   private void generateCompanyAddress(List<VoucherPage> voucherPages) {
-    voucherPages.forEach(voucherPage ->
-        voucherPage.getVoucher().setCompanyAddress(StorePickUpEnum
-            .getAbbreviationByCode(voucherPage.getVoucher().getSucursal())));
+    voucherPages.forEach(voucherPage -> {
+      if (voucherPages.get(0).getVoucher().getCompany().equals("CRO")) {
+        voucherPage.getVoucher().setCompanyAddress(CromosolAddressEnum
+            .getAbbreviationByCode(voucherPage.getVoucher().getSucursal()));
+      } else {
+        voucherPage.getVoucher().setCompanyAddress(BbaAddressEnum
+            .getAbbreviationByCode(voucherPage.getVoucher().getSucursal()));
+      }
+    });
   }
 
   private void generateJsonAndQRForVoucher(Voucher voucher) {
