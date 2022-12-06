@@ -295,62 +295,43 @@
     </xsl:template>
 
     <xsl:template name="itemsCromosol">
-        <xsl:choose>
-            <xsl:when test="voucher/observations != ''">
-                <fo:table-row font-size="8pt">
-                    <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
-                        <fo:block></fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
-                        <fo:block></fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell text-align="center" padding="10px 0px 1px 0px">
-                        <fo:block>
-                            <xsl:value-of select="voucher/observations"/>
-                        </fo:block>
-                    </fo:table-cell>
-                </fo:table-row>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:for-each select="items/items">
-                    <fo:table-row font-size="8pt">
-                        <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
-                            <fo:block>
-                                <xsl:value-of select="quantity"/>
-                            </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
-                            <fo:block>
-                                <xsl:value-of select="articleId"/>
-                            </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell text-align="left" padding="1px 0px 1px 0px">
-                            <fo:block>
-                                <xsl:value-of
-                                        select="translate(articleDescription, $smallcase, $uppercase)"/>
-                            </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
-                            <fo:block>
-                                <xsl:value-of select="dispatch"/>
-                            </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell text-align="right" padding="1px 0px 1px 0px">
-                            <fo:block>
-                                <xsl:value-of
-                                        select="format-number(unitPrice, '###.###.#00,00', 'decimalFormat')"/>
-                            </fo:block>
-                        </fo:table-cell>
-                        <fo:table-cell text-align="right" padding="1px 2px 1px 0px">
-                            <fo:block>
-                                <xsl:value-of
-                                        select="format-number(totalAmount, '###.###.#00,00', 'decimalFormat')"/>
-                            </fo:block>
-                        </fo:table-cell>
-                    </fo:table-row>
-                </xsl:for-each>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:for-each select="items/items">
+            <fo:table-row font-size="8pt">
+                <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
+                    <fo:block>
+                        <xsl:value-of select="quantity"/>
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
+                    <fo:block>
+                        <xsl:value-of select="articleId"/>
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell text-align="left" padding="1px 0px 1px 0px">
+                    <fo:block>
+                        <xsl:value-of
+                                select="translate(articleDescription, $smallcase, $uppercase)"/>
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell text-align="center" padding="1px 0px 1px 0px">
+                    <fo:block>
+                        <xsl:value-of select="dispatch"/>
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell text-align="right" padding="1px 0px 1px 0px">
+                    <fo:block>
+                        <xsl:value-of
+                                select="format-number(unitPrice, '###.###.#00,00', 'decimalFormat')"/>
+                    </fo:block>
+                </fo:table-cell>
+                <fo:table-cell text-align="right" padding="1px 2px 1px 0px">
+                    <fo:block>
+                        <xsl:value-of
+                                select="format-number(totalAmount, '###.###.#00,00', 'decimalFormat')"/>
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+        </xsl:for-each>
     </xsl:template>
 
     <xsl:template name="itemsBBA">
@@ -395,13 +376,9 @@
 
     <xsl:template name="observaciones">
         <fo:block height="1cm" border="solid 0.1mm black" border-top-style="hidden" padding-right="20px">
-            <xsl:choose>
-                <xsl:when test="voucher/company = 'BBA' or voucher/company = 'AUT'">
-                    <fo:block text-indent="5mm" space-before="1mm" font-size="10pt">
-                        <xsl:value-of select="voucher/observations"/>
-                    </fo:block>
-                </xsl:when>
-            </xsl:choose>
+            <fo:block text-indent="5mm" space-before="1mm" font-size="10pt">
+                <xsl:value-of select="voucher/observations"/>
+            </fo:block>
         </fo:block>
     </xsl:template>
 
