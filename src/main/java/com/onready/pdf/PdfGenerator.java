@@ -237,8 +237,8 @@ public class PdfGenerator {
   }
 
   private byte[] writeQR(String text) throws IOException, WriterException {
-    int width = 110;
-    int height = 110;
+    int width = 100;
+    int height = 100;
     String imageFormat = "png";
     BitMatrix bitMatrix = new QRCodeWriter().encode(text, BarcodeFormat.QR_CODE, width, height);
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
