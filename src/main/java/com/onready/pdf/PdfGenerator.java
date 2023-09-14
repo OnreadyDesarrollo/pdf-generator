@@ -172,10 +172,6 @@ public class PdfGenerator {
     }
   }
 
-  private boolean isAve(Voucher voucher) {
-    return voucher.getSucursal() == AVELLANEDA_BRANCH && !voucher.getCompany().equals(CROMOSOL_COMPANY);
-  }
-
   private boolean isAutoventure(Voucher voucher) {
     Date voucherDate = voucher.getUntransformedVoucherDate();
     Date autoventureDate = this.getAutoventureStartDate();
@@ -185,8 +181,6 @@ public class PdfGenerator {
   private String getCompanyPath(Voucher voucher) {
     if (this.isAutoventure(voucher)) {
       return "AUT";
-    } else if (this.isAve(voucher)) {
-      return "AVE";
     } else {
       return voucher.getCompany();
     }
