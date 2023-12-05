@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Tue Dec 05 12:22:36 ART 2023
+pdf-generator-1.5.6.jar>=
+pdf-generator-1.5.6-sources.jar>=
+pdf-generator-1.5.6.pom>=
