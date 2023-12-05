@@ -7,9 +7,6 @@
 
     <xsl:template name="datosClienteDerecha">
         <fo:block border="solid 0.1mm black" font-size="7pt" text-align="left" padding-left="3px">
-            <fo:block padding="6px 0px 6px 0px">
-                CONDICIONES: AL PIE.ENTREGA PAGO MAX 35 DIAS
-            </fo:block>
             <fo:block padding="0px 0px 6px 0px">
                 I.V.A.:
                 <xsl:value-of select="voucher/vatCondition"/>
@@ -121,19 +118,14 @@
                                    border="solid 0.1mm black">
                         <fo:block-container height="17.5mm">
                             <fo:block>
-                                CHEQUES A LA ORDEN DE CROMOSOL S.A.
                             </fo:block>
                             <fo:block>
-                                1) 35 DIAS FECHA FACTURA = DTO 12 + 2 + 5
                             </fo:block>
                             <fo:block>
-                                2) 36/60 DIAS FECHA FACTURA = DTO 12 + 2
                             </fo:block>
                             <fo:block>
-                                3) 61/70 DIAS FECHA FACTURA = DTO 12
                             </fo:block>
                             <fo:block>
-                                4) 71 DIAS FECHA FACTURA = NETO
                             </fo:block>
                         </fo:block-container>
                     </fo:table-cell>
