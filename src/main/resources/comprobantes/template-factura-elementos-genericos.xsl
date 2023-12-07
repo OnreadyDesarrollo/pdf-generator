@@ -567,6 +567,12 @@
                             <xsl:value-of select="position()"/> de
                             <xsl:value-of select="last()"/>
                         </fo:block>
+                        <fo:block font-family="pf_interleaved_2_of_5regular" font-size="21" text-align="left">
+                            <xsl:value-of select="voucher/barCode"/>
+                        </fo:block>
+                        <fo:block text-align="left">
+                            <xsl:value-of select="voucher/electronicBill"/>
+                        </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
             </fo:table-body>
