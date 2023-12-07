@@ -7,9 +7,6 @@
 
     <xsl:template name="datosClienteDerecha">
         <fo:block border="solid 0.1mm black" font-size="7pt" text-align="left" padding-left="3px">
-            <fo:block padding="6px 0px 6px 0px">
-                CONDICIONES: AL PIE
-            </fo:block>
             <fo:block padding="0px 0px 6px 0px">
                 I.V.A.:
                 <xsl:value-of select="voucher/vatCondition"/>
@@ -118,13 +115,10 @@
                                    border="solid 0.1mm black">
                         <fo:block-container height="15mm" margin-left="6px">
                             <fo:block>
-                                CHEQUES A LA ORDEN DE BBA AUTOPARTES S.A.
                             </fo:block>
                             <fo:block>
-                                35 DIAS FECHA FACTURA = DTO 4
                             </fo:block>
                             <fo:block>
-                                36 DIAS FECHA FACTURA = NETO
                             </fo:block>
                         </fo:block-container>
                     </fo:table-cell>
