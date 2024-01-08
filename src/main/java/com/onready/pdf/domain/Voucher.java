@@ -30,6 +30,7 @@ public class Voucher {
   private BigDecimal voucherTotal;
   private String voucherCode;
   private int ctaCteTipoComprobanteID;
+  private String paymentCondition;
   private Date voucherDueDate;
   @JsonProperty("caietype")
   private String caieType;
@@ -70,6 +71,28 @@ public class Voucher {
   public String getVoucherDate() {
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     return formatter.format(this.voucherDate);
+  }
+
+  public String getVoucherDueDate() {
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    return formatter.format(this.voucherDueDate);
+  }
+
+  public String getPaymentCondition() {
+    switch (ctaCteTipoComprobanteID) {
+      case 1:
+        return "CTACTE";
+      case 2:
+        return "CONTRA ENTREGA";
+      case 3:
+        return "PAGA ADELANTADO";
+      case 4:
+        return "PEDIDO CONTRA PEDIDO";
+      case 5:
+        return "NO OPERA";
+      default:
+        return "";
+    }
   }
 
   public String getVoucherDateForQr() {
