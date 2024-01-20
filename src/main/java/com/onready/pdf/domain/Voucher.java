@@ -28,7 +28,19 @@ public class Voucher {
   private String barCode;
   private int itemQuantity;
   private BigDecimal voucherTotal;
+
+  /**
+   * voucherCode se utiliza para indicar si se debe mostrar la leyenda de condición de pago
+   * al pie izquierdo de la página o no. Si viene "1" se muestra, de lo contrario no y queda vacío.
+   * El texto debería setearse en el campo paymentConditionText a través del servicio
+   * que pida el comprobante (SLA, Icommkt).
+   */
   private String voucherCode;
+
+  /**
+   * ctaCteTipoComprobanteID se utiliza para, según el código que venga
+   * se muestre una u otra condición de pago (ver método getPaymentCondition()).
+   */
   private int ctaCteTipoComprobanteID;
   private String paymentCondition;
   private Date voucherDueDate;
@@ -55,6 +67,7 @@ public class Voucher {
   private String caieExpirationDate;
   private String companyAddress;
   private String qr;
+  private String paymentConditionText;
 
   private List<ItemVoucher> items;
 

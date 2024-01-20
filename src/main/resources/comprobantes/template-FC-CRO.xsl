@@ -130,28 +130,18 @@
             <fo:table-column column-width="50%"/>
             <fo:table-body>
                 <fo:table-row font-size="8pt">
-                    <fo:table-cell text-align="left" padding="6px 6px 0px 6px" margin-right="2px"
+                    <fo:table-cell text-align="left" padding="2px 0px 0px 0px" margin-right="2px"
                                    border="solid 0.1mm black">
-                        <fo:block-container height="17.5mm">
-                            <fo:block>
-                            </fo:block>
-                            <fo:block>
-                            </fo:block>
-                            <fo:block>
-                            </fo:block>
-                            <fo:block>
-                            </fo:block>
-                            <fo:block>
+                        <fo:block-container height="15mm" margin-left="3px">
+                            <fo:block linefeed-treatment="preserve">
+                                <xsl:value-of select="voucher/paymentConditionText"/>
                             </fo:block>
                         </fo:block-container>
                     </fo:table-cell>
-                    <fo:table-cell text-align="left" padding="6px 0px 0px 6px" border="solid 0.1mm black">
+                    <fo:table-cell text-align="center" padding="6px 0px 0px 0px" border="solid 0.1mm black">
                         <fo:block-container height="15mm">
                             <fo:block>
-                                <xsl:value-of select="voucher/expeditions"/>
-                            </fo:block>
-                            <fo:block>
-                                <xsl:value-of select="voucher/includedOrders"/>
+                                <xsl:value-of select="DocumentWrapper/root/voucher/includedOrders"/>
                             </fo:block>
                         </fo:block-container>
                     </fo:table-cell>
