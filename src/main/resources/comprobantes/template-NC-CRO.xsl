@@ -7,7 +7,7 @@
 
     <xsl:template name="datosClienteDerecha">
         <fo:block border="solid 0.1mm black" font-size="7pt" text-align="left" padding-left="3px">
-            <fo:block padding="6px 0px 6px 0px" text-decoration="underline">
+            <fo:block padding="6px 0px 0px 0px" text-decoration="underline" text-align="center">
                 CONDICION DE PAGO
             </fo:block>
             <fo:table table-layout="fixed" width="100%" border="none">
