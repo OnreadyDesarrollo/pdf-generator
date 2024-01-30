@@ -7,14 +7,33 @@
 
     <xsl:template name="datosClienteDerecha">
         <fo:block border="solid 0.1mm black" font-size="7pt" text-align="left" padding-left="3px">
-            <fo:block padding="0px 0px 6px 0px">
-                I.V.A.:
-                <xsl:value-of select="voucher/vatCondition"/>
+            <fo:block padding="6px 0px 0px 0px" text-decoration="underline" text-align="center">
+                CONDICION DE PAGO
             </fo:block>
-            <fo:block padding="0px 0px 6px 0px">
-                C.U.I.T.:
-                <xsl:value-of select="voucher/cuit"/>
-            </fo:block>
+            <fo:table table-layout="fixed" width="100%" border="none">
+                <fo:table-column column-width="50%"/>
+                <fo:table-column column-width="50%"/>
+                <fo:table-body>
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block padding="6px 0px 6px 0px">
+                                Fecha vencimiento:
+                            </fo:block>
+                            <fo:block padding="6px 0px 6px 0px">
+                                Condición de venta:
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block padding="6px 0px 6px 0px">
+                                <xsl:value-of select="voucher/voucherDueDate"/>
+                            </fo:block>
+                            <fo:block padding="6px 0px 6px 0px">
+                                <xsl:value-of select="voucher/paymentCondition"/>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
         </fo:block>
     </xsl:template>
 

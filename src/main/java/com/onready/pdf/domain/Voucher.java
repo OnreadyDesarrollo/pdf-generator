@@ -28,8 +28,21 @@ public class Voucher {
   private String barCode;
   private int itemQuantity;
   private BigDecimal voucherTotal;
+
+  /**
+   * voucherCode se utiliza para indicar si se debe mostrar la leyenda de condición de pago
+   * al pie izquierdo de la página o no. Si viene "1" se muestra, de lo contrario no y queda vacío.
+   * El texto debería setearse en el campo paymentConditionText a través del servicio
+   * que pida el comprobante (SLA, Icommkt).
+   */
   private String voucherCode;
+
+  /**
+   * ctaCteTipoComprobanteID se utiliza para, según el código que venga
+   * se muestre una u otra condición de pago (ver método getPaymentCondition()).
+   */
   private int ctaCteTipoComprobanteID;
+  private String paymentCondition;
   private Date voucherDueDate;
   @JsonProperty("caietype")
   private String caieType;
@@ -54,6 +67,7 @@ public class Voucher {
   private String caieExpirationDate;
   private String companyAddress;
   private String qr;
+  private String paymentConditionText;
 
   private List<ItemVoucher> items;
 
@@ -70,6 +84,28 @@ public class Voucher {
   public String getVoucherDate() {
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     return formatter.format(this.voucherDate);
+  }
+
+  public String getVoucherDueDate() {
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+    return formatter.format(this.voucherDueDate);
+  }
+
+  public String getPaymentCondition() {
+    switch (ctaCteTipoComprobanteID) {
+      case 1:
+        return "CTACTE";
+      case 2:
+        return "CONTRA ENTREGA";
+      case 3:
+        return "PAGA ADELANTADO";
+      case 4:
+        return "PEDIDO CONTRA PEDIDO";
+      case 5:
+        return "NO OPERA";
+      default:
+        return "";
+    }
   }
 
   public String getVoucherDateForQr() {

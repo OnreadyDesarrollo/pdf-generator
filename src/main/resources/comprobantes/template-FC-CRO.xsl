@@ -7,14 +7,33 @@
 
     <xsl:template name="datosClienteDerecha">
         <fo:block border="solid 0.1mm black" font-size="7pt" text-align="left" padding-left="3px">
-            <fo:block padding="0px 0px 6px 0px">
-                I.V.A.:
-                <xsl:value-of select="voucher/vatCondition"/>
+            <fo:block padding="6px 0px 0px 0px" text-decoration="underline" text-align="center">
+                CONDICION DE PAGO
             </fo:block>
-            <fo:block padding="0px 0px 6px 0px">
-                C.U.I.T.:
-                <xsl:value-of select="voucher/cuit"/>
-            </fo:block>
+            <fo:table table-layout="fixed" width="100%" border="none">
+                <fo:table-column column-width="50%"/>
+                <fo:table-column column-width="50%"/>
+                <fo:table-body>
+                    <fo:table-row>
+                        <fo:table-cell>
+                            <fo:block padding="6px 0px 6px 0px">
+                                Fecha vencimiento:
+                            </fo:block>
+                            <fo:block padding="6px 0px 6px 0px">
+                                Condición de venta:
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block padding="6px 0px 6px 0px">
+                                <xsl:value-of select="voucher/voucherDueDate"/>
+                            </fo:block>
+                            <fo:block padding="6px 0px 6px 0px">
+                                <xsl:value-of select="voucher/paymentCondition"/>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                </fo:table-body>
+            </fo:table>
         </fo:block>
     </xsl:template>
 
@@ -114,28 +133,18 @@
             <fo:table-column column-width="50%"/>
             <fo:table-body>
                 <fo:table-row font-size="8pt">
-                    <fo:table-cell text-align="left" padding="6px 6px 0px 6px" margin-right="2px"
+                    <fo:table-cell text-align="left" padding="2px 0px 0px 0px" margin-right="2px"
                                    border="solid 0.1mm black">
-                        <fo:block-container height="17.5mm">
-                            <fo:block>
-                            </fo:block>
-                            <fo:block>
-                            </fo:block>
-                            <fo:block>
-                            </fo:block>
-                            <fo:block>
-                            </fo:block>
-                            <fo:block>
+                        <fo:block-container height="15mm" margin-left="3px">
+                            <fo:block linefeed-treatment="preserve">
+                                <xsl:value-of select="voucher/paymentConditionText"/>
                             </fo:block>
                         </fo:block-container>
                     </fo:table-cell>
-                    <fo:table-cell text-align="left" padding="6px 0px 0px 6px" border="solid 0.1mm black">
+                    <fo:table-cell text-align="center" padding="6px 0px 0px 0px" border="solid 0.1mm black">
                         <fo:block-container height="15mm">
                             <fo:block>
-                                <xsl:value-of select="voucher/expeditions"/>
-                            </fo:block>
-                            <fo:block>
-                                <xsl:value-of select="voucher/includedOrders"/>
+                                <xsl:value-of select="DocumentWrapper/root/voucher/includedOrders"/>
                             </fo:block>
                         </fo:block-container>
                     </fo:table-cell>

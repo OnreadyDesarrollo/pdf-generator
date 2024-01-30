@@ -153,8 +153,8 @@
         <fo:block border="solid 0.1mm black" margin-right="5px" text-align="left" font-size="7pt">
             <fo:table table-layout="fixed" width="100%" border="none">
                 <fo:table-column column-width="15%"/>
-                <fo:table-column column-width="60%"/>
-                <fo:table-column column-width="20%"/>
+                <fo:table-column column-width="50%"/>
+                <fo:table-column column-width="30%"/>
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell>
@@ -163,25 +163,35 @@
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
-                            <fo:block padding="6px 0px 6px 0px">
+                            <fo:block padding="6px 0px 3px 0px">
                                 <xsl:value-of select="voucher/businessName"/>
                             </fo:block>
-                            <fo:block padding="0px 0px 6px 0px">
+                            <fo:block padding="0px 0px 3px 0px">
                                 <xsl:value-of select="voucher/address"/>
                             </fo:block>
-                            <fo:block padding="0px 0px 6px 0px">
+                            <fo:block padding="0px 0px 3px 0px">
                                 <xsl:value-of select="voucher/city"/>
+                            </fo:block>
+                            <fo:block padding="0px 0px 3px 0px">
+                                I.V.A.:
+                                <xsl:value-of select="voucher/vatCondition"/>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
-                            <fo:block padding="6px 0px 6px 0px">
+                            <fo:block padding="6px 0px 3px 0px">
                                 <xsl:value-of select="voucher/customerId"/>
-                            </fo:block>
-                            <fo:block padding="0px 0px 6px 0px">
+                                -
                                 <xsl:value-of select="voucher/sellerCode"/>
                             </fo:block>
-                            <fo:block padding="0px 0px 6px 0px">
+                            <fo:block padding="0px 0px 3px 0px">
+                                &#160;
+                            </fo:block>
+                            <fo:block padding="0px 0px 3px 0px">
                                 <xsl:value-of select="voucher/state"/>
+                            </fo:block>
+                            <fo:block padding="0px 0px 3px 0px">
+                                C.U.I.T.:
+                                <xsl:value-of select="voucher/cuit"/>
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -544,12 +554,18 @@
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
+                        <fo:block>
+                            Nro. pedido:
+                            <xsl:value-of select="voucher/includedOrders"/>
+                        </fo:block>
+                        <fo:block>
+                            Nro. de entrega:
+                            <xsl:value-of select="voucher/expeditions"/>
+                        </fo:block>
                         <xsl:choose>
                             <xsl:when test="not(voucher/caieExpirationDate = '')
                 and not(voucher/caie = null)
                 and not(voucher/caie = '')">
-                                <fo:block>&#160;</fo:block>
-                                <fo:block>&#160;</fo:block>
                                 <fo:block>&#160;</fo:block>
                                 <fo:block>
                                     <xsl:value-of select="voucher/caietype"/> N°:
