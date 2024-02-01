@@ -81,12 +81,10 @@
 
     <xsl:template name="aclaracionesAlPie">
         <fo:block font-size="6pt" margin-top="5px">
-            LAS FACTURAS DEBEN SER ABONADAS EN AUTOVENTURES S.A. - CAMINO GENERAL BELGRANO 2916 - B1825CYD VILLA DOMINICO
-            ARGENTINA - CHEQUES A LA ORDEN DE AUTOVENTURES S.A.
+
         </fo:block>
         <fo:block font-size="6pt" margin-bottom="5px">
-            LA MERCADERIA VIAJA POR CUENTA Y RIESGO DEL COMPRADOR. NO SE ACEPTAN RECLAMOS DESPUES DE LAS 48HS. DE
-            RECIBIDA LA MERCADERIA.
+
         </fo:block>
     </xsl:template>
 

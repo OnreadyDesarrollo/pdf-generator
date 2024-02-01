@@ -81,11 +81,8 @@
 
     <xsl:template name="aclaracionesAlPie">
         <fo:block font-size="7pt" margin-top="5px">
-            LAS FACTURAS DEBEN SER ABONADAS EN BBA AUTOPARTES S.A. - AV. ROBERTO HOOKE 3754 - (CP 1667) TORTUGUITAS ARGENTINA - CHEQUES A LA ORDEN DE BBA AUTOPARTES S.A
         </fo:block>
         <fo:block font-size="7pt" margin-bottom="5px">
-            LA MERCADERIA VIAJA POR CUENTA Y RIESGO DEL COMPRADOR. NO SE ACEPTAN RECLAMOS DESPUES DE LAS 48HS. DE
-            RECIBIDA LA MERCADERIA.
         </fo:block>
     </xsl:template>
 
