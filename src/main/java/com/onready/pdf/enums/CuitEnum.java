@@ -9,7 +9,8 @@ public enum CuitEnum {
 
   CRO("CRO", 30500728317L),
   BBA("BBA", 30711285314L),
-  AUT("AUT", 30709760447L);
+  AUT("AUT", 30709760447L),
+  ILE("ILE", 30710823657L);
 
   private final String abbreviation;
   private final Long cuit;
