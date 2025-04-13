@@ -12,4 +12,15 @@ public class VoucherPage {
   private BigDecimal pageSubTotal;
   private BigDecimal previousPageSubTotal;
 
+  public String getPageSubTotal() {
+    return pageSubTotal.toPlainString();
+  }
+
+  public String getPreviousPageSubTotal() {
+    return previousPageSubTotal.toPlainString();
+  }
+
+  public BigDecimal getRawPageSubTotal() {
+    return pageSubTotal;
+  }
 }

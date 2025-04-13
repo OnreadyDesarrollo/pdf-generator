@@ -78,16 +78,16 @@ public class PdfGenerator {
         if (i == 0) {
           pageSubTotal = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
         } else {
-          pageSubTotal = voucherPages.get(i - 1).getPageSubTotal();
+          pageSubTotal = voucherPages.get(i - 1).getRawPageSubTotal();
         }
         for (ItemVoucher itemVoucher : partition) {
           pageSubTotal = pageSubTotal.add(
-              itemVoucher.getTotalAmount().setScale(2, RoundingMode.HALF_UP));
+              itemVoucher.getRawTotalAmount().setScale(2, RoundingMode.HALF_UP));
         }
         voucherPage.setPageSubTotal(pageSubTotal);
       }
       if (i > 0) {
-        voucherPage.setPreviousPageSubTotal(voucherPages.get(i - 1).getPageSubTotal());
+        voucherPage.setPreviousPageSubTotal(voucherPages.get(i - 1).getRawPageSubTotal());
       }
       voucherPages.add(voucherPage);
     }
@@ -205,7 +205,7 @@ public class PdfGenerator {
     qrJsonVo.setPtoVta(voucher.getSucursal());
     qrJsonVo.setTipoCmp(VoucherTypeCodeEnum.getCodeByVoucherType(voucher));
     qrJsonVo.setNroCmp(voucher.getVoucherNumber());
-    qrJsonVo.setImporte(voucher.getVoucherTotal());
+    qrJsonVo.setImporte(voucher.getRawVoucherTotal());
     qrJsonVo.setNroDocRec(Long.valueOf(voucher.getCuit().replace("-", "")));
     qrJsonVo.setTipoCodAut(this.generateAuthorizationTypeCode(voucher));
     qrJsonVo.setCodAut(Long.valueOf(voucher.getCaie()));

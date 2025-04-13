@@ -71,6 +71,38 @@ public class Voucher {
 
   private List<ItemVoucher> items;
 
+  public String getVoucherTotal() {
+    return voucherTotal.toPlainString();
+  }
+
+  public BigDecimal getRawVoucherTotal() {
+    return voucherTotal;
+  }
+
+  public String getSubTotal() {
+    return subTotal.toPlainString();
+  }
+
+  public BigDecimal getRawSubTotal() {
+    return subTotal;
+  }
+
+  public String getDiscount() {
+    return discount.toPlainString();
+  }
+
+  public String getNetSubTotal() {
+    return netSubTotal.toPlainString();
+  }
+
+  public String getVatAmount() {
+    return vatAmount.toPlainString();
+  }
+
+  public String getGrossIncomePerception() {
+    return grossIncomePerception.toPlainString();
+  }
+
   public String getCaieExpirationDate() {
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     try {

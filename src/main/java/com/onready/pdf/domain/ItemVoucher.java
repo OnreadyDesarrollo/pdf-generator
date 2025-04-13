@@ -13,4 +13,17 @@ public class ItemVoucher {
   private String dispatch;
   private BigDecimal unitPrice;
   private BigDecimal totalAmount;
+
+  public String getUnitPrice() {
+    return unitPrice.toPlainString();
+  }
+
+  public String getTotalAmount() {
+    return totalAmount.toPlainString();
+  }
+
+  public BigDecimal getRawTotalAmount() {
+    return totalAmount;
+  }
+
 }
