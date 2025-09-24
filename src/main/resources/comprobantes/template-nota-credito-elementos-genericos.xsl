@@ -580,7 +580,7 @@
                                 <fo:block>&#160;</fo:block>
                                 <fo:block>&#160;</fo:block>
                                 <fo:block>
-                                    CAE N°:
+                                    <xsl:value-of select="voucher/caietype"/> N°:
                                     <xsl:value-of select="voucher/caie"/>
                                     - Vencimiento:
                                     <xsl:value-of select="voucher/caieExpirationDate"/>
